@@ -35,6 +35,10 @@ return [
     						'vendors-reset-assword' => 'vendor/vendor/reset-password',
     						'vendors-about' => 'vendor/vendor/about',
     						'vendors-contact' => 'vendor/vendor/contact',
+    						'vendors-profile-update' => 'vendor/vendor/update',
+    						'vendors-branches' => 'vendor/branches/index',
+    						'vendors-branches-create' => 'vendor/branches/create',
+    						'vendors-branches-update' => 'vendor/branches/update',
     						
     						
     				]

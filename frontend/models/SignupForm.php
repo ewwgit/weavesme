@@ -12,6 +12,8 @@ class SignupForm extends Model
     public $username;
     public $email;
     public $password;
+    public $confirm;
+    
 
 
     /**
@@ -33,6 +35,7 @@ class SignupForm extends Model
 
             ['password', 'required'],
             ['password', 'string', 'min' => 6],
+        	[['confirm'], 'compare', 'compareAttribute' => 'password'],
         ];
     }
 
@@ -54,5 +57,14 @@ class SignupForm extends Model
         $user->generateAuthKey();
         
         return $user->save() ? $user : null;
+    }
+    
+    public function attributeLabels()
+    {
+    	return [
+    			'username' => 'User Name',
+    			'confirm' => 'Confirm Password',
+    			
+    	];
     }
 }

@@ -38,12 +38,13 @@ class VendorInfo extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['vendorId'], 'required'],
+        		[['createdDate', 'updatedDate','vendorId', 'createdBy', 'updatedBy','firstName', 'lastName','telephone', 'mobile', 'fax'], 'safe'],
+            /* [['vendorId'], 'required'],
             [['vendorId', 'createdBy', 'updatedBy'], 'integer'],
             [['createdDate', 'updatedDate'], 'safe'],
             [['firstName', 'lastName'], 'string', 'max' => 200],
             [['telephone', 'mobile', 'fax'], 'string', 'max' => 15],
-            [['vendorId'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['vendorId' => 'id']],
+            [['vendorId'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['vendorId' => 'id']], */
         ];
     }
 

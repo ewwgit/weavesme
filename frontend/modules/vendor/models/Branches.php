@@ -37,7 +37,7 @@ class Branches extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['vendorId', 'branchName', 'country', 'status'], 'required'],
+            [[ 'branchName', 'country', 'status'], 'required'],
             [['vendorId', 'city', 'state', 'country'], 'integer'],
             [['address1', 'address2', 'aboutShop', 'status'], 'string'],
             [['branchName'], 'string', 'max' => 200],

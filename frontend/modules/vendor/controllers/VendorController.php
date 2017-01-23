@@ -85,12 +85,29 @@ class VendorController extends Controller
      * @param integer $id
      * @return mixed
      */
-    public function actionUpdate($id)
+    public function actionUpdate()
     {
+    	$id = Yii::$app->user->id;
         $model = $this->findModel($id);
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->vendorInfoId]);
+        $userhaveRecords = 1;
+       if($model == NULL)
+       {
+       	$userhaveRecords = 0;
+       	$model = new VendorInfo();
+       }
+       
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+        	if($userhaveRecords == 0)
+        	{
+        		$model->createdDate = date('Y-m-d H:i:s');
+        		$model->createdBy = Yii::$app->user->id;
+        	}
+        	$model->updatedDate = date('Y-m-d H:i:s');
+        	$model->updatedBy = Yii::$app->user->id;
+        	$model->vendorId = Yii::$app->user->id;
+        	
+        	$model->save();
+            return $this->redirect(['index']);
         } else {
             return $this->render('update', [
                 'model' => $model,
@@ -120,10 +137,12 @@ class VendorController extends Controller
      */
     protected function findModel($id)
     {
-        if (($model = VendorInfo::findOne($id)) !== null) {
+        if (($model = VendorInfo::find()->where(['vendorId' => $id])->one()) !== null) {
+        	
             return $model;
         } else {
-            throw new NotFoundHttpException('The requested page does not exist.');
+        	return $model;
+            //throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
     
@@ -260,4 +279,6 @@ class VendorController extends Controller
     			'model' => $model,
     	]);
     }
+    
+    
 }
