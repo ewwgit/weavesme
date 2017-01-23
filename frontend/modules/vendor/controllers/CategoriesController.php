@@ -65,7 +65,11 @@ class CategoriesController extends Controller
     {
         $model = new Categories();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+        	$model->createdDate = date('Y-m-d H:i:s');
+        	$model->updatedDate = date('Y-m-d H:i:s');
+        	$model->vendorId = Yii::$app->user->id;
+        	$model->save();
             return $this->redirect(['view', 'id' => $model->catId]);
         } else {
             return $this->render('create', [
@@ -84,7 +88,9 @@ class CategoriesController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+        	$model->updatedDate = date('Y-m-d H:i:s');
+        	$model->save();
             return $this->redirect(['view', 'id' => $model->catId]);
         } else {
             return $this->render('update', [

@@ -39,6 +39,9 @@ return [
     						'vendors-branches' => 'vendor/branches/index',
     						'vendors-branches-create' => 'vendor/branches/create',
     						'vendors-branches-update' => 'vendor/branches/update',
+    						'vendors-categories' => 'vendor/categories/index',
+    						'vendors-categories-create' => 'vendor/categories/create',
+    						'vendors-categories-update' => 'vendor/categories/update',
     						
     						
     				]

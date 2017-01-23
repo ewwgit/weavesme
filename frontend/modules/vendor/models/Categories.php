@@ -34,7 +34,7 @@ class Categories extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'status', 'vendorId'], 'required'],
+            [['name', 'status'], 'required'],
             [['description', 'status'], 'string'],
             [['parentCategoryId', 'vendorId'], 'integer'],
             [['createdDate', 'updatedDate'], 'safe'],
