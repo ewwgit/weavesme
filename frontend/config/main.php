@@ -28,6 +28,13 @@ return [
     				'showScriptName' => false,
     				'rules' => [
     						'vendors' => 'vendor/vendor/index',
+    						'vendors-signup' => 'vendor/vendor/signup',
+    						'vendors-login' => 'vendor/vendor/login',
+    						'vendors-logout' => 'vendor/vendor/logout',
+    						'vendors-request-password-reset' => 'vendor/vendor/request-password-reset',
+    						'vendors-reset-assword' => 'vendor/vendor/reset-password',
+    						'vendors-about' => 'vendor/vendor/about',
+    						'vendors-contact' => 'vendor/vendor/contact',
     						
     						
     				]
