@@ -125,7 +125,7 @@ class BranchesController extends Controller
      */
     protected function findModel($id)
     {
-        if (($model = Branches::findOne($id)) !== null) {
+        if (($model = Branches::find()->where(['branchId' => $id,'vendorId' => Yii::$app->user->id])->one()) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

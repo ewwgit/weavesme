@@ -15,6 +15,26 @@ return [
 		'modules' => [
 				'vendor' => [
 						'class' => 'frontend\modules\vendor\vendorModule',
+						/* 'modules' => [
+								'rbac' => [
+										'class' => 'yii2mod\rbac\Module',
+										// Some controller property maybe need to change.
+										'controllerMap' => [
+												'assignment' => [
+														'class' => 'yii2mod\rbac\controllers\AssignmentController',
+														'userIdentityClass' => 'app\models\User',
+														'searchClass' => '',
+														'idField' => 'id',
+														'usernameField' => 'username',
+														'gridViewColumns' => [
+																'id',
+																'username',
+																'email'
+														]
+												]
+										]
+								],
+						] */
 				],
 		],
     'components' => [
@@ -49,6 +69,10 @@ return [
     						
     				]
     		],
+    		/* 'authManager' => [
+    				'class' => 'yii\rbac\DbManager',
+    				
+    		], */
         'user' => [
             'identityClass' => 'common\models\User',
             'enableAutoLogin' => true,

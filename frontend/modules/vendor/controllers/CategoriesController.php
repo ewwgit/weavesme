@@ -123,7 +123,7 @@ class CategoriesController extends Controller
      */
     protected function findModel($id)
     {
-        if (($model = Categories::findOne($id)) !== null) {
+        if (($model = Categories::find($id)->where(['catId' => $id,'vendorId' => Yii::$app->user->id])->one()) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

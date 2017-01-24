@@ -13,6 +13,7 @@ use frontend\models\PasswordResetRequestForm;
 use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
 use frontend\models\ContactForm;
+//use yii2mod\rbac\filters\AccessControl;
 
 /**
  * VendorController implements the CRUD actions for VendorInfo model.
@@ -33,6 +34,31 @@ class VendorController extends Controller
             ],
         ];
     }
+    
+    
+    /* public function behaviors()
+    {
+    	return [
+    			'access' => [
+    					'class' => AccessControl::className(),
+    					'rules' => [
+    							
+    							[
+    							'allow' => true,
+    							'actions' => ['index','signup','login'],
+    							'roles' => ['?'],
+    							],
+    							[
+    							'allow' => true,
+    							'actions' => ['index','update'],
+    							'roles' => ['vendor'],
+    							],
+    							
+    							
+    					],
+    			],
+    	];
+    } */
 
     /**
      * Lists all VendorInfo models.
