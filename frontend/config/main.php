@@ -42,6 +42,9 @@ return [
     						'vendors-categories' => 'vendor/categories/index',
     						'vendors-categories-create' => 'vendor/categories/create',
     						'vendors-categories-update' => 'vendor/categories/update',
+    						'vendors-products' => 'vendor/products/index',
+    						'vendors-products-create' => 'vendor/products/create',
+    						'vendors-products-update' => 'vendor/products/update',
     						
     						
     				]

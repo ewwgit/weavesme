@@ -41,7 +41,13 @@ class ProductsSearch extends Products
      */
     public function search($params)
     {
+    	if(isset($params['searchnewType']) && ($params['searchnewType'] == 'vendor'))
+    	{
+    		$query = Products::find()->where(['vendorId' => Yii::$app->user->id]);
+    	}
+    	else {
         $query = Products::find();
+    	}
 
         // add conditions that should always apply here
 

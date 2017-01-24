@@ -41,7 +41,13 @@ class VendorInfoSearch extends VendorInfo
      */
     public function search($params)
     {
+    	if(isset($params['searchnewType']) && ($params['searchnewType'] == 'vendor'))
+    	{
+    		$query = VendorInfo::find()->where(['vendorId' => Yii::$app->user->id]);
+    	}
+    	else {
         $query = VendorInfo::find();
+    	}
 
         // add conditions that should always apply here
 

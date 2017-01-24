@@ -41,7 +41,13 @@ class BranchesSearch extends Branches
      */
     public function search($params)
     {
+    	if(isset($params['searchnewType']) && ($params['searchnewType'] == 'vendor'))
+    	{
+    		$query = Branches::find()->where(['vendorId' => Yii::$app->user->id]);
+    	}
+    	else {
         $query = Branches::find();
+    	}
 
         // add conditions that should always apply here
 

@@ -36,7 +36,9 @@ class CategoriesController extends Controller
     public function actionIndex()
     {
         $searchModel = new CategoriesSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $paramsary = Yii::$app->request->queryParams;
+        $paramsary['searchnewType'] = 'vendor';
+        $dataProvider = $searchModel->search($paramsary);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
