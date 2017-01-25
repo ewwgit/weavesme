@@ -43,7 +43,7 @@ class CategoriesSearch extends Categories
     {
     	if(isset($params['searchnewType']) && ($params['searchnewType'] == 'vendor'))
     	{
-    		 $query = Categories::find()->where(['vendorId' => Yii::$app->user->id]);
+    		 $query = Categories::find()->where(['vendorId' => Yii::$app->vendoruser->vendorid]);
     	}
     	else {
         $query = Categories::find();

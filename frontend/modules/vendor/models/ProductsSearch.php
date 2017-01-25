@@ -43,7 +43,7 @@ class ProductsSearch extends Products
     {
     	if(isset($params['searchnewType']) && ($params['searchnewType'] == 'vendor'))
     	{
-    		$query = Products::find()->where(['vendorId' => Yii::$app->user->id]);
+    		$query = Products::find()->where(['vendorId' => Yii::$app->vendoruser->vendorid]);
     	}
     	else {
         $query = Products::find();

@@ -70,7 +70,7 @@ class BranchesController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
         	$model->createdDate = date('Y-m-d H:i:s');
         	$model->updatedDate = date('Y-m-d H:i:s');
-        	$model->vendorId = Yii::$app->user->id;
+        	$model->vendorId = Yii::$app->vendoruser->vendorid;
         	$model->save();
         	
             return $this->redirect(['view', 'id' => $model->branchId]);
@@ -125,7 +125,7 @@ class BranchesController extends Controller
      */
     protected function findModel($id)
     {
-        if (($model = Branches::find()->where(['branchId' => $id,'vendorId' => Yii::$app->user->id])->one()) !== null) {
+        if (($model = Branches::find()->where(['branchId' => $id,'vendorId' => Yii::$app->vendoruser->vendorid])->one()) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

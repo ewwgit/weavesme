@@ -36,6 +36,7 @@ class SignupForm extends Model
             ['password', 'required'],
             ['password', 'string', 'min' => 6],
         	[['confirm'], 'compare', 'compareAttribute' => 'password'],
+        	['roleId', 'safe'],
         ];
     }
 
@@ -55,6 +56,7 @@ class SignupForm extends Model
         $user->email = $this->email;
         $user->setPassword($this->password);
         $user->generateAuthKey();
+        $user->roleId = 2;
         /* $user->save();
         $auth = \Yii::$app->authManager;
         $authorRole = $auth->getRole('vendor');

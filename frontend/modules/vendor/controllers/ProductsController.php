@@ -117,7 +117,7 @@ class ProductsController extends Controller
      */
     protected function findModel($id)
     {
-        if (($model = Products::find()->where(['productId' => $id,'vendorId' => Yii::$app->user->id])->one()) !== null) {
+        if (($model = Products::find()->where(['productId' => $id,'vendorId' => Yii::$app->vendoruser->vendorid])->one()) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

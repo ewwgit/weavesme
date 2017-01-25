@@ -39,14 +39,14 @@ AppAsset::register($this);
         ['label' => 'About', 'url' => ['/vendor/vendor/about']],
         ['label' => 'Contact', 'url' => ['/vendor/vendor/contact']],
     ];
-    if (Yii::$app->user->isGuest) {
+    if ((Yii::$app->user->isGuest) || (Yii::$app->vendoruser->vendorroleId !=2)) {
         $menuItems[] = ['label' => 'Signup', 'url' => ['/vendor/vendor/signup']];
         $menuItems[] = ['label' => 'Login', 'url' => ['/vendor/vendor/login']];
     } else {
         $menuItems[] = '<li>'
             . Html::beginForm(['/site/logout'], 'post')
             . Html::submitButton(
-                'Logout (' . Yii::$app->user->identity->username . ')',
+                'Logout (' . Yii::$app->vendoruser->vendorusername . ')',
                 ['class' => 'btn btn-link logout']
             )
             . Html::endForm()
