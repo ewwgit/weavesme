@@ -14,6 +14,8 @@ use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
 use frontend\models\ContactForm;
 //use yii2mod\rbac\filters\AccessControl;
+use frontend\modules\vendor\models\VendorrolesModel;
+use yii\filters\AccessControl;
 
 /**
  * VendorController implements the CRUD actions for VendorInfo model.
@@ -23,17 +25,58 @@ class VendorController extends Controller
     /**
      * @inheritdoc
      */
-    public function behaviors()
-    {
-        return [
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'delete' => ['POST'],
-                ],
-            ],
-        ];
-    }
+public function behaviors()
+	{
+	
+		$permissionsArray = [''];
+		
+		if(VendorrolesModel::getRole() == 2)
+		{
+			$permissionsArray = ['index','view','create','update','view','delete','signup','login','logout','contact','request-password-reset','reset-assword','about'
+			];
+		}
+		else {
+			$permissionsArray = ['contact','request-password-reset','reset-assword','about','index','signup','login','logout'];
+		}
+	
+	
+		
+		return [
+				'verbs' => [
+						'class' => VerbFilter::className(),
+						'actions' => [
+								
+						],
+				],
+				'access' => [
+						'class' => AccessControl::className(),
+						'only' => [
+								'index','view','create','update','view','delete','signup','login','logout','contact','request-password-reset','reset-assword','about'
+	
+						],
+						'rules' => [
+								[
+										'actions' => $permissionsArray,
+										'allow' => true,
+										'matchCallback' => function ($rule, $action) {
+											
+										if((VendorrolesModel::getRole() == 2) || (VendorrolesModel::getRole() == 0))
+										{
+	
+											return true;
+										}
+										}
+										],
+										[
+												'denyCallback' => function ($rule, $action) {
+													
+												$this->redirect(Yii::$app->urlManager->createUrl(['vendors-login']));
+												}
+												]
+												]
+												]
+												];
+	}
     
     
     /* public function behaviors()
@@ -235,9 +278,17 @@ class VendorController extends Controller
      */
     public function actionLogout()
     {
-    	Yii::$app->user->logout();
-    
-    	return $this->goHome();
+    	\Yii::$app->session->remove('user.vendorid');
+	    \Yii::$app->session->remove('user.vendorusername');
+	    \Yii::$app->session->remove('user.vendorpassword_hash');
+	    \Yii::$app->session->remove('user.vendorpassword_reset_token');
+	    \Yii::$app->session->remove('user.vendoremail');
+	    \Yii::$app->session->remove('user.vendorauth_key');
+	    \Yii::$app->session->remove('user.vendorstatus');
+	    \Yii::$app->session->remove('user.vendorcreated_at');
+	    \Yii::$app->session->remove('user.vendorupdated_at');
+	    \Yii::$app->session->remove('user.vendorroleId');
+    	return $this->redirect('vendors');
     }
     
     /**

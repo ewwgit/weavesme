@@ -42,9 +42,10 @@ AppAsset::register($this);
     if ((Yii::$app->user->isGuest) || (Yii::$app->vendoruser->vendorroleId !=2)) {
         $menuItems[] = ['label' => 'Signup', 'url' => ['/vendor/vendor/signup']];
         $menuItems[] = ['label' => 'Login', 'url' => ['/vendor/vendor/login']];
+        
     } else {
         $menuItems[] = '<li>'
-            . Html::beginForm(['/site/logout'], 'post')
+            . Html::beginForm(['/vendor/vendor/logout'], 'post')
             . Html::submitButton(
                 'Logout (' . Yii::$app->vendoruser->vendorusername . ')',
                 ['class' => 'btn btn-link logout']
