@@ -68,11 +68,15 @@ class CategoriesController extends Controller
         $model = new Categories();
 
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+        	if($model->parentCategoryId == '')
+        	{
+        		$model->parentCategoryId = 0;
+        	}
         	$model->createdDate = date('Y-m-d H:i:s');
         	$model->updatedDate = date('Y-m-d H:i:s');
         	$model->vendorId = Yii::$app->vendoruser->vendorid;
         	$model->save();
-            return $this->redirect(['view', 'id' => $model->catId]);
+            return $this->redirect(['vendors-categories']);
         } else {
             return $this->render('create', [
                 'model' => $model,
@@ -91,9 +95,13 @@ class CategoriesController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+        	if($model->parentCategoryId == '')
+        	{
+        		$model->parentCategoryId = 0;
+        	}
         	$model->updatedDate = date('Y-m-d H:i:s');
         	$model->save();
-            return $this->redirect(['view', 'id' => $model->catId]);
+            return $this->redirect(['vendors-categories']);
         } else {
             return $this->render('update', [
                 'model' => $model,
@@ -111,7 +119,7 @@ class CategoriesController extends Controller
     {
         $this->findModel($id)->delete();
 
-        return $this->redirect(['index']);
+        return $this->redirect(['vendors-categories']);
     }
 
     /**

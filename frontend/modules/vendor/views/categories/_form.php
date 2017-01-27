@@ -2,6 +2,8 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use yii\helpers\ArrayHelper;
+use frontend\modules\vendor\models\Categories;
 
 /* @var $this yii\web\View */
 /* @var $model frontend\modules\vendor\models\Categories */
@@ -12,7 +14,8 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
     
-    <?= $form->field($model, 'parentCategoryId')->textInput() ?>
+    
+    <?= $form->field($model, 'parentCategoryId')->dropDownList(ArrayHelper::map(Categories::find()->where(['vendorId' => Yii::$app->vendoruser->vendorid,'status'=>'Active'])->all(), 'catId', 'name'),['prompt' =>'Select Parent Category']);?>
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 

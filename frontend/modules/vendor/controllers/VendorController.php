@@ -32,6 +32,7 @@ public function behaviors()
 		
 		if(VendorrolesModel::getRole() == 2)
 		{
+			
 			$permissionsArray = ['index','view','create','update','view','delete','signup','login','logout','contact','request-password-reset','reset-assword','about'
 			];
 		}
@@ -158,6 +159,7 @@ public function behaviors()
      */
     public function actionUpdate()
     {
+    	
     	$id = Yii::$app->vendoruser->vendorid;
         $model = $this->findModel($id);
         $userhaveRecords = 1;
@@ -242,24 +244,25 @@ public function behaviors()
      */
     public function actionLogin()
     {
-    	if (!Yii::$app->user->isGuest) {
+    	if (Yii::$app->vendoruser->vendorid != '') {
     		return $this->goHome();
     	}
     
     	$model = new LoginForm();
     	if ($model->load(Yii::$app->request->post()) && $model->login()) {
+    		
     		if($model->user->roleId == 2)
     		{
-    			\Yii::$app->session->set('user.vendorid',Yii::$app->user->identity->id);
-    			\Yii::$app->session->set('user.vendorusername',Yii::$app->user->identity->username);
-    			\Yii::$app->session->set('user.vendorpassword_hash',Yii::$app->user->identity->password_hash);
-    			\Yii::$app->session->set('user.vendorpassword_reset_token',Yii::$app->user->identity->password_reset_token);
-    			\Yii::$app->session->set('user.vendoremail',Yii::$app->user->identity->email);
-    			\Yii::$app->session->set('user.vendorauth_key',Yii::$app->user->identity->auth_key);
-    			\Yii::$app->session->set('user.vendorstatus',Yii::$app->user->identity->status);
-    			\Yii::$app->session->set('user.vendorcreated_at',Yii::$app->user->identity->created_at);
-    			\Yii::$app->session->set('user.vendorupdated_at',Yii::$app->user->identity->updated_at);
-    			\Yii::$app->session->set('user.vendorroleId',Yii::$app->user->identity->roleId);
+    			\Yii::$app->session->set('user.vendorid',$model->user->id);
+    			\Yii::$app->session->set('user.vendorusername',$model->user->username);
+    			\Yii::$app->session->set('user.vendorpassword_hash',$model->user->password_hash);
+    			\Yii::$app->session->set('user.vendorpassword_reset_token',$model->user->password_reset_token);
+    			\Yii::$app->session->set('user.vendoremail',$model->user->email);
+    			\Yii::$app->session->set('user.vendorauth_key',$model->user->auth_key);
+    			\Yii::$app->session->set('user.vendorstatus',$model->user->status);
+    			\Yii::$app->session->set('user.vendorcreated_at',$model->user->created_at);
+    			\Yii::$app->session->set('user.vendorupdated_at',$model->user->updated_at);
+    			\Yii::$app->session->set('user.vendorroleId',$model->user->roleId);
     			
     			return Yii::$app->getResponse()->redirect(Yii::$app->urlManager->createUrl(['vendor/vendor/']));
     		}

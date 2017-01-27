@@ -14,8 +14,9 @@ class VendorrolesModel extends Component
 	public static function getRole()
 	{
 		
-		if(isset(Yii::$app->vendoruser->vendorid))
+		if(Yii::$app->vendoruser->vendorid != '')
 		{
+			
 		$userExist = User::find()->where( [ 'id' => Yii::$app->vendoruser->vendorid ,'status' => 10] )->exists();
 		
 		if($userExist != 1)

@@ -60,7 +60,7 @@ class Products extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['productCode', 'vendorId', 'branchId', 'productName', 'categoryId', 'productStatus', 'cashOnDeliveryStatus', 'blouseAvailable', 'pettiCoat', 'status'], 'required'],
+            [['productCode',  'branchId', 'productName', 'categoryId', 'productStatus', 'cashOnDeliveryStatus', 'blouseAvailable', 'pettiCoat', 'status'], 'required'],
             [['vendorId', 'branchId', 'categoryId', 'createdBy', 'updatedBy'], 'integer'],
             [['description', 'productStatus', 'cashOnDeliveryStatus', 'productColor', 'blouseAvailable', 'blouseColor', 'pettiCoat', 'occation', 'status'], 'string'],
             [['createdDate', 'updatedDate'], 'safe'],

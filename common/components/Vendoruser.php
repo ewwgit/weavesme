@@ -32,7 +32,7 @@ class Vendoruser extends Component {
     $this->vendorupdated_at= \Yii::$app->session->get('user.vendorupdated_at');
     $this->vendorroleId= \Yii::$app->session->get('user.vendorroleId');
    
-    
+    //echo  $this->vendorroleId;exit();
 		
 		
 	}

@@ -90,10 +90,7 @@ return [
 			'savePath' => __DIR__ . '/../runtime', // a temporary folder on frontend
         ],
     		
-    		'customer' => [
-    				'class' => 'common\components\Customer',
     		
-    		],
     		'vendoruser' => [
     				'class' => 'common\components\Vendoruser',
     		

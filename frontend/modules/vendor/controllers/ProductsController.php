@@ -67,9 +67,17 @@ class ProductsController extends Controller
     {
         $model = new Products();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+        	$model->createdDate = date('Y-m-d H:i:s');
+        	$model->updatedDate = date('Y-m-d H:i:s');
+        	$model->vendorId = Yii::$app->vendoruser->vendorid;
+        	$model->createdBy = Yii::$app->vendoruser->vendorid;
+        	$model->updatedBy = Yii::$app->vendoruser->vendorid;
+        	$model->save();
+        	
             return $this->redirect(['view', 'id' => $model->productId]);
         } else {
+        	
             return $this->render('create', [
                 'model' => $model,
             ]);
@@ -86,7 +94,11 @@ class ProductsController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+        	$model->updatedDate = date('Y-m-d H:i:s');
+        	$model->vendorId = Yii::$app->vendoruser->vendorid;
+        	$model->updatedBy = Yii::$app->vendoruser->vendorid;
+        	$model->save();
             return $this->redirect(['view', 'id' => $model->productId]);
         } else {
             return $this->render('update', [

@@ -2,6 +2,9 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use yii\helpers\ArrayHelper;
+use frontend\modules\vendor\models\Categories;
+use frontend\modules\vendor\models\Branches;
 
 /* @var $this yii\web\View */
 /* @var $model frontend\modules\vendor\models\Products */
@@ -11,18 +14,14 @@ use yii\widgets\ActiveForm;
 <div class="products-form">
 
     <?php $form = ActiveForm::begin(); ?>
-
-    <?= $form->field($model, 'productCode')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'vendorId')->textInput() ?>
-
-    <?= $form->field($model, 'branchId')->textInput() ?>
+    
+    <?= $form->field($model, 'branchId')->dropDownList(ArrayHelper::map(Branches::find()->where(['vendorId' => Yii::$app->vendoruser->vendorid,'status'=>'Active'])->all(), 'branchId', 'branchName'),['prompt' =>'Select Branch']);?>
+    
+    <?= $form->field($model, 'categoryId')->dropDownList(ArrayHelper::map(Categories::find()->where(['vendorId' => Yii::$app->vendoruser->vendorid,'status'=>'Active'])->all(), 'catId', 'name'),['prompt' =>'Select  Category']);?>
 
     <?= $form->field($model, 'productName')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'categoryId')->textInput() ?>
-
-    <?= $form->field($model, 'description')->textarea(['rows' => 6]) ?>
+    <?= $form->field($model, 'productCode')->textInput(['maxlength' => true]) ?>     
 
     <?= $form->field($model, 'productStatus')->dropDownList([ 'In Stock' => 'In Stock', 'Out Of Stock' => 'Out Of Stock', ], ['prompt' => '']) ?>
 
@@ -55,14 +54,8 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'occation')->textarea(['rows' => 6]) ?>
 
     <?= $form->field($model, 'WashCare')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'createdBy')->textInput() ?>
-
-    <?= $form->field($model, 'updatedBy')->textInput() ?>
-
-    <?= $form->field($model, 'createdDate')->textInput() ?>
-
-    <?= $form->field($model, 'updatedDate')->textInput() ?>
+    
+    <?= $form->field($model, 'description')->textarea(['rows' => 6]) ?>
 
     <?= $form->field($model, 'status')->dropDownList([ 'Active' => 'Active', 'In-active' => 'In-active', ], ['prompt' => '']) ?>
 
