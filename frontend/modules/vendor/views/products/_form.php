@@ -5,6 +5,9 @@ use yii\widgets\ActiveForm;
 use yii\helpers\ArrayHelper;
 use frontend\modules\vendor\models\Categories;
 use frontend\modules\vendor\models\Branches;
+use kartik\select2\Select2;
+use unclead\multipleinput\MultipleInput;
+use kartik\file\FileInput;
 
 /* @var $this yii\web\View */
 /* @var $model frontend\modules\vendor\models\Products */
@@ -13,7 +16,7 @@ use frontend\modules\vendor\models\Branches;
 
 <div class="products-form">
 
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]); ?>
     
     <?= $form->field($model, 'branchId')->dropDownList(ArrayHelper::map(Branches::find()->where(['vendorId' => Yii::$app->vendoruser->vendorid,'status'=>'Active'])->all(), 'branchId', 'branchName'),['prompt' =>'Select Branch']);?>
     
@@ -29,7 +32,20 @@ use frontend\modules\vendor\models\Branches;
 
     <?= $form->field($model, 'CashOnDeliveryPrice')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'productColor')->textarea(['rows' => 6]) ?>
+    
+    <?= $form->field($model, 'productColor')->widget(Select2::classname(), [
+                           		                 
+                           		       'data'=>$model->alreadyProductColor,
+                           		        'options' => ['placeholder' => 'Enter Product Color', 'multiple' => true],
+                                        'pluginOptions' => [
+                                        'tags' => true,
+                                        'allowClear' => true,
+                                        'tokenSeparators' => [','],
+                                      //'maximumInputLength' => 10
+                                             ],
+                           		      //'value' => ['valu1','valu2']
+                           ]);
+    ?>
 
     <?= $form->field($model, 'sareeFabric')->textInput(['maxlength' => true]) ?>
 
@@ -41,7 +57,21 @@ use frontend\modules\vendor\models\Branches;
 
     <?= $form->field($model, 'blouseAvailable')->dropDownList([ 'Yes' => 'Yes', 'No' => 'No', ], ['prompt' => '']) ?>
 
-    <?= $form->field($model, 'blouseColor')->textarea(['rows' => 6]) ?>
+    
+    
+    <?= $form->field($model, 'blouseColor')->widget(Select2::classname(), [
+                           		                 
+                           		       'data'=>$model->alreadyBlouseColor,
+                           		        'options' => ['placeholder' => 'Enter Blouse Color', 'multiple' => true],
+                                        'pluginOptions' => [
+                                        'tags' => true,
+                                        'allowClear' => true,
+                                        'tokenSeparators' => [','],
+                                      //'maximumInputLength' => 10
+                                             ],
+                           		      //'value' => ['valu1','valu2']
+                           ]);
+    ?>
 
     <?= $form->field($model, 'blouseWork')->textInput(['maxlength' => true]) ?>
 
@@ -51,7 +81,20 @@ use frontend\modules\vendor\models\Branches;
 
     <?= $form->field($model, 'pettiCoat')->dropDownList([ 'Yes' => 'Yes', 'No' => 'No', ], ['prompt' => '']) ?>
 
-    <?= $form->field($model, 'occation')->textarea(['rows' => 6]) ?>
+    
+    <?= $form->field($model, 'occation')->widget(Select2::classname(), [
+                           		                 
+                           		       'data'=>$model->alreadyOccations,
+                           		        'options' => ['placeholder' => 'Enter Occations', 'multiple' => true],
+                                        'pluginOptions' => [
+                                        'tags' => true,
+                                        'allowClear' => true,
+                                        'tokenSeparators' => [','],
+                                      //'maximumInputLength' => 10
+                                             ],
+                           		      //'value' => ['valu1','valu2']
+                           ]);
+    ?>
 
     <?= $form->field($model, 'WashCare')->textInput(['maxlength' => true]) ?>
     
@@ -59,6 +102,86 @@ use frontend\modules\vendor\models\Branches;
 
     <?= $form->field($model, 'status')->dropDownList([ 'Active' => 'Active', 'In-active' => 'In-active', ], ['prompt' => '']) ?>
 
+
+<?= $form->field($model, 'costs')->widget(MultipleInput::className(), [
+    'max' => 4,
+    'columns' => [
+    		
+    		[
+    		'name'  => 'cost',
+    		'enableError' => true,
+    		'title' => 'Cost',
+    		'options' => [
+    				'class' => 'input-priority'
+    		]
+    		],
+        [
+            'name'  => 'currency',
+            'type'  => 'dropDownList',
+            'title' => 'Currency',
+            'defaultValue' => 'INR',
+            'items' => [
+                'INR' => 'INR',
+                'USD' => 'USD'
+            ]
+        ],
+    		
+    		[
+    		'name'  => 'country',
+    		'type'  => 'dropDownList',
+    		'title' => 'Country',
+    		'defaultValue' => 101,
+    		'items' => $model->countriesList
+    		],
+        
+    		
+        
+        
+    ]
+ ])->label(false);
+?>
+
+<?= $form->field($model, 'shipping')->widget(MultipleInput::className(), [
+    'max' => 4,
+    'columns' => [
+    		
+    		[
+    		'name'  => 'shipingCost',
+    		'enableError' => true,
+    		'title' => 'Shipping Cost',
+    		'options' => [
+    				'class' => 'input-priority'
+    		]
+    		],
+        [
+            'name'  => 'shipingCurrency',
+            'type'  => 'dropDownList',
+            'title' => 'Shipping Currency',
+            'defaultValue' => 'INR',
+            'items' => [
+                'INR' => 'INR',
+                'USD' => 'USD'
+            ]
+        ],
+    		
+    		[
+    		'name'  => 'shipingCountry',
+    		'type'  => 'dropDownList',
+    		'title' => 'Shipping  Country',
+    		'defaultValue' => 101,
+    		'items' => $model->countriesList
+    		],
+        
+    		
+        
+        
+    ]
+ ])->label(false);
+?>
+<?= $form->field($model, 'galleryImages[]')->widget(FileInput::classname(), [
+		'options' => ['accept' => 'image/*','multiple' => true],
+]);
+?>
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>

@@ -33,11 +33,11 @@ class ProductShipping extends \yii\db\ActiveRecord
     {
         return [
             [['shipingCost', 'shipingCountry', 'shipingCurrency', 'productId'], 'required'],
-            [['shipingCountry', 'productId'], 'integer'],
+            /* [['shipingCountry', 'productId'], 'integer'],
             [['shipingCost'], 'string', 'max' => 20],
-            [['shipingCurrency'], 'string', 'max' => 10],
-            [['shipingCountry'], 'exist', 'skipOnError' => true, 'targetClass' => Countries::className(), 'targetAttribute' => ['shipingCountry' => 'id']],
-            [['productId'], 'exist', 'skipOnError' => true, 'targetClass' => Products::className(), 'targetAttribute' => ['productId' => 'productId']],
+            [['shipingCurrency'], 'string', 'max' => 10], */
+            /* [['shipingCountry'], 'exist', 'skipOnError' => true, 'targetClass' => Countries::className(), 'targetAttribute' => ['shipingCountry' => 'id']],
+            [['productId'], 'exist', 'skipOnError' => true, 'targetClass' => Products::className(), 'targetAttribute' => ['productId' => 'productId']], */
         ];
     }
 
@@ -69,5 +69,11 @@ class ProductShipping extends \yii\db\ActiveRecord
     public function getProduct()
     {
         return $this->hasOne(Products::className(), ['productId' => 'productId']);
+    }
+    
+    public static function getShippingInfoByProductID($productId) {
+    	 
+    	$productData = ProductShipping::find()->asArray(true)->where(['productId' => $productId ])->all();
+    	return $productData;
     }
 }

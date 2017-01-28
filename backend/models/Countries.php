@@ -63,4 +63,16 @@ class Countries extends \yii\db\ActiveRecord
     {
         return $this->hasMany(ProductShipping::className(), ['shipingCountry' => 'id']);
     }
+    public static function getCountries()
+    {
+    	$countriesModel = Countries::find()->select(['id', 'name'])
+    	->asArray()
+    	->all();
+    	$countries = array();
+    	for($k=0;$k<count($countriesModel); $k++)
+    	{
+    		$countries[$countriesModel[$k]['id']] = $countriesModel[$k]['name'];
+    	}
+    	return $countries;
+    }
 }

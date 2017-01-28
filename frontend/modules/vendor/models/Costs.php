@@ -36,8 +36,8 @@ class Costs extends \yii\db\ActiveRecord
             [['country', 'productId'], 'integer'],
             [['cost'], 'string', 'max' => 20],
             [['currency'], 'string', 'max' => 10],
-            [['country'], 'exist', 'skipOnError' => true, 'targetClass' => Countries::className(), 'targetAttribute' => ['country' => 'id']],
-            [['productId'], 'exist', 'skipOnError' => true, 'targetClass' => Products::className(), 'targetAttribute' => ['productId' => 'productId']],
+           /*  [['country'], 'exist', 'skipOnError' => true, 'targetClass' => Countries::className(), 'targetAttribute' => ['country' => 'id']],
+            [['productId'], 'exist', 'skipOnError' => true, 'targetClass' => Products::className(), 'targetAttribute' => ['productId' => 'productId']], */
         ];
     }
 
@@ -69,5 +69,11 @@ class Costs extends \yii\db\ActiveRecord
     public function getProduct()
     {
         return $this->hasOne(Products::className(), ['productId' => 'productId']);
+    }
+    
+    public static function getCostsInfoByProductID($productId) {
+    	
+    	$costData = Costs::find()->asArray(true)->where(['productId' => $productId ])->all();
+    	return $costData;
     }
 }

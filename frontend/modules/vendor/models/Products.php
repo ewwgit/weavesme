@@ -46,6 +46,13 @@ use common\models\User;
  */
 class Products extends \yii\db\ActiveRecord
 {
+	public $alreadyOccations;
+	public $alreadyProductColor;
+	public $alreadyBlouseColor;
+	public $costs;
+	public $countriesList;
+	public $shipping;
+	public $galleryImages;
     /**
      * @inheritdoc
      */
@@ -61,11 +68,11 @@ class Products extends \yii\db\ActiveRecord
     {
         return [
             [['productCode',  'branchId', 'productName', 'categoryId', 'productStatus', 'cashOnDeliveryStatus', 'blouseAvailable', 'pettiCoat', 'status'], 'required'],
-            [['vendorId', 'branchId', 'categoryId', 'createdBy', 'updatedBy'], 'integer'],
-            [['description', 'productStatus', 'cashOnDeliveryStatus', 'productColor', 'blouseAvailable', 'blouseColor', 'pettiCoat', 'occation', 'status'], 'string'],
-            [['createdDate', 'updatedDate'], 'safe'],
-            [['productCode', 'CashOnDeliveryPrice'], 'string', 'max' => 20],
-            [['productName', 'sareeFabric', 'sareeType', 'sareeWork', 'sareeLength', 'blouseWork', 'blouseFabric', 'blouseSize', 'WashCare'], 'string', 'max' => 200],
+           /*  [['vendorId', 'branchId', 'categoryId', 'createdBy', 'updatedBy'], 'integer'], */
+            /* [['description', 'productStatus', 'cashOnDeliveryStatus', 'productColor', 'blouseAvailable', 'blouseColor', 'pettiCoat', 'occation', 'status'], 'string'], */
+            [['createdDate', 'updatedDate','alreadyOccations','description', 'productStatus', 'cashOnDeliveryStatus', 'productColor', 'blouseAvailable', 'blouseColor', 'pettiCoat', 'occation', 'status','costs','countriesList','shipping','galleryImages'], 'safe'],
+           /*  [['productCode', 'CashOnDeliveryPrice'], 'string', 'max' => 20],
+            [['productName', 'sareeFabric', 'sareeType', 'sareeWork', 'sareeLength', 'blouseWork', 'blouseFabric', 'blouseSize', 'WashCare'], 'string', 'max' => 200], */
             [['branchId'], 'exist', 'skipOnError' => true, 'targetClass' => Branches::className(), 'targetAttribute' => ['branchId' => 'branchId']],
             [['categoryId'], 'exist', 'skipOnError' => true, 'targetClass' => Categories::className(), 'targetAttribute' => ['categoryId' => 'catId']],
             [['vendorId'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['vendorId' => 'id']],
