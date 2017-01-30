@@ -32,7 +32,7 @@ class Costs extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['cost', 'country', 'currency', 'productId'], 'required'],
+            [['cost', 'country', 'currency', 'productId','regularPrice'], 'required'],
             [['country', 'productId'], 'integer'],
             [['cost'], 'string', 'max' => 20],
             [['currency'], 'string', 'max' => 10],

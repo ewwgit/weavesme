@@ -16,6 +16,11 @@ use frontend\models\ContactForm;
 //use yii2mod\rbac\filters\AccessControl;
 use frontend\modules\vendor\models\VendorrolesModel;
 use yii\filters\AccessControl;
+use backend\models\Countries;
+use backend\models\States;
+use backend\models\Cities;
+use yii\helpers\Json;
+use yii\web\UploadedFile;
 
 /**
  * VendorController implements the CRUD actions for VendorInfo model.
@@ -168,6 +173,26 @@ public function behaviors()
        	$userhaveRecords = 0;
        	$model = new VendorInfo();
        }
+       $model->countriesList = Countries::getCountries();
+       $model->citiesData = [];
+       if($model->country != '')
+       {
+       	//$model->country = Countries::getCountryId($model->country);
+       	$model->statesData = Countries::getStatesByCountryview($model->country);
+       	//$model->state =  States::getStateId($model->state);
+       }
+       else{
+       	$model->country = $model->country;
+       	$model->statesData = [];
+       	$model->state =  '';
+       }
+       if($model->state != '')
+       {
+       
+       	$model->citiesData = Cities::getCiteslist($model->state);
+       	//$model->city = Cities::getCityId($model->city);
+       
+       }
        
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
         	if($userhaveRecords == 0)
@@ -178,6 +203,21 @@ public function behaviors()
         	$model->updatedDate = date('Y-m-d H:i:s');
         	$model->updatedBy = Yii::$app->vendoruser->vendorid;
         	$model->vendorId = Yii::$app->vendoruser->vendorid;
+        	
+        	$model->profileImage = UploadedFile::getInstance($model,'profileImage');
+        	
+        	if(!(empty($model->profileImage)))
+        	{
+        		$profileimage=$model->profileImage;
+        		
+        		
+        		$imageName = rand(1000,100000).str_replace(' ', "_", $model->profileImage->baseName);
+        		
+        		$model->profileImage->saveAs(realpath(Yii::$app->basePath).'/web/uploads/profile/' . $imageName . '.' . $model->profileImage->extension);
+        		
+        		$model->profileImage = 'web/uploads/profile/'.$imageName.'.'.$model->profileImage->extension;
+        		
+        	}
         	
         	$model->save();
             return $this->redirect(['index']);

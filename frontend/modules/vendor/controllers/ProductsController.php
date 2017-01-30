@@ -90,6 +90,7 @@ class ProductsController extends Controller
         			$costsModel = new Costs();
         			$costsModel->productId =  $model->productId;
         			$costsModel->cost =  $costsData[$c]['cost'];
+        			$costsModel->regularPrice =  $costsData[$c]['regularPrice'];
         			$costsModel->currency =  $costsData[$c]['currency'];
         			$costsModel->country =  $costsData[$c]['country'];
         			$costsModel->save();
@@ -202,6 +203,7 @@ class ProductsController extends Controller
         			$costsModel = new Costs();
         			$costsModel->productId =  $model->productId;
         			$costsModel->cost =  $costsData[$c]['cost'];
+        			$costsModel->regularPrice =  $costsData[$c]['regularPrice'];
         			$costsModel->currency =  $costsData[$c]['currency'];
         			$costsModel->country =  $costsData[$c]['country'];
         			$costsModel->save();

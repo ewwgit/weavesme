@@ -106,11 +106,18 @@ use kartik\file\FileInput;
 <?= $form->field($model, 'costs')->widget(MultipleInput::className(), [
     'max' => 4,
     'columns' => [
-    		
+    		[
+    		'name'  => 'regularPrice',
+    		'enableError' => true,
+    		'title' => 'Regular Price',
+    		'options' => [
+    				'class' => 'input-priority'
+    		]
+    		],
     		[
     		'name'  => 'cost',
     		'enableError' => true,
-    		'title' => 'Cost',
+    		'title' => 'Selling Price',
     		'options' => [
     				'class' => 'input-priority'
     		]

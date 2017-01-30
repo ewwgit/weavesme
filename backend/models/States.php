@@ -44,4 +44,10 @@ class States extends \yii\db\ActiveRecord
             'country_id' => 'Country ID',
         ];
     }
+    public static function getStateId($stateName)
+    {
+    	$statesModel = States::find()->select(['id'])->asArray()->where(['name'=>$stateName])
+    	->one();
+    	return $statesModel['id'];
+    }
 }

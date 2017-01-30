@@ -8,6 +8,10 @@ use frontend\modules\vendor\models\BranchesSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use backend\models\Countries;
+use backend\models\States;
+use backend\models\Cities;
+use yii\helpers\Json;
 
 /**
  * BranchesController implements the CRUD actions for Branches model.
@@ -66,7 +70,26 @@ class BranchesController extends Controller
     public function actionCreate()
     {
         $model = new Branches();
-
+        $model->countriesList = Countries::getCountries();
+        $model->citiesData = [];
+        if($model->country != '')
+        {
+        	$model->country = Countries::getCountryId($model->country);
+        	$model->statesData = Countries::getStatesByCountryview($model->country);
+        	$model->state =  States::getStateId($model->state);
+        }
+        else{
+        	$model->country = $model->country;
+        	$model->statesData = [];
+        	$model->state =  '';
+        }
+        if($model->state != '')
+        {
+        
+        	$model->citiesData = Cities::getCiteslist($model->state);
+        	$model->city = Cities::getCityId($model->city);
+        
+        }
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
         	$model->createdDate = date('Y-m-d H:i:s');
         	$model->updatedDate = date('Y-m-d H:i:s');
@@ -91,6 +114,29 @@ class BranchesController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $model->countriesList = Countries::getCountries();
+        $model->citiesData = [];
+        if($model->country != '')
+        {
+        	
+        	//$model->country = Countries::getCountryId($model->country);
+        	
+        	$model->statesData = Countries::getStatesByCountryview($model->country);
+        	//$model->state =  States::getStateId($model->state);
+        }
+        else{
+        	$model->country = $model->country;
+        	$model->statesData = [];
+        	$model->state =  '';
+        }
+        if($model->state != '')
+        {
+        
+        	$model->citiesData = Cities::getCiteslist($model->state);
+        	//$model->city = Cities::getCityId($model->city);
+        
+        }
+        
 
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
         	$model->updatedDate = date('Y-m-d H:i:s');
@@ -126,9 +172,64 @@ class BranchesController extends Controller
     protected function findModel($id)
     {
         if (($model = Branches::find()->where(['branchId' => $id,'vendorId' => Yii::$app->vendoruser->vendorid])->one()) !== null) {
+        	
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
+    }
+    
+    public function actionStates()
+    {
+    
+    	$out = [];
+    	if (isset($_POST['depdrop_parents'])) {
+    		$parents = $_POST['depdrop_parents'];
+    
+    		if ($parents != null) {
+    			$country = $parents[0];
+    			$states = Countries::getStatesByCountry($country);
+    			/* $out = [
+    			 ['id'=>'<sub-cat-id-1>', 'name'=>'<sub-cat-name1>'],
+    			 ['id'=>'<sub-cat_id_2>', 'name'=>'<sub-cat-name2>']
+    
+    			 ]; */
+    			echo Json::encode(['output'=>$states, 'selected'=>0]);
+    			return;
+    				
+    				
+    		}
+    	}
+    		
+    	echo Json::encode(['output'=>'', 'selected'=>'']);
+    		
+    		
+    }
+    
+    public function actionCities()
+    {
+    
+    	$out = [];
+    	if (isset($_POST['depdrop_parents'])) {
+    		$parents = $_POST['depdrop_parents'];
+    
+    		if ($parents != null) {
+    			$state = $parents[0];
+    			$cities = Countries::getCitiesByState($state);
+    			/* $out = [
+    			 ['id'=>'<sub-cat-id-1>', 'name'=>'<sub-cat-name1>'],
+    			 ['id'=>'<sub-cat_id_2>', 'name'=>'<sub-cat-name2>']
+    
+    			 ]; */
+    			echo Json::encode(['output'=>$cities, 'selected'=>0]);
+    			return;
+    				
+    				
+    		}
+    	}
+    		
+    	echo Json::encode(['output'=>'', 'selected'=>'']);
+    		
+    		
     }
 }

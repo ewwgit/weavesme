@@ -75,4 +75,47 @@ class Countries extends \yii\db\ActiveRecord
     	}
     	return $countries;
     }
+    
+    public static function getStatesByCountry($countryId)
+    {
+    	$statesModel = States::find()->select(['id', 'name'])->asArray()->where(['country_id'=>$countryId])
+    	->all();
+    	$states = array();
+    	for($k=0;$k<count($statesModel); $k++)
+    	{
+    		$states[$k]['id'] = $statesModel[$k]['id'];
+    		$states[$k]['name'] = $statesModel[$k]['name'];
+    	}
+    	return $states;
+    }
+    public static function getCitiesByState($stateid)
+    {
+    	$citiesModel = Cities::find()->select(['id', 'name'])->asArray()->where(['state_id'=>$stateid])
+    	->all();
+    	$cities = array();
+    	for($k=0;$k<count($citiesModel); $k++)
+    	{
+    		$cities[$k]['id'] = $citiesModel[$k]['id'];
+    		$cities[$k]['name'] = $citiesModel[$k]['name'];
+    	}
+    	return $cities;
+    }
+    public static function getCountryId($countryname)
+    {
+    	$countryName = Countries::find()->select(['id'])->asArray()->where(['name'=>$countryname])
+    	->one();
+    	return $countryName['id'];
+    }
+    public static function getStatesByCountryview($countryId)
+    {
+    	$statesModel = States::find()->select(['id', 'name'])->asArray()->where(['country_id'=>$countryId])
+    	->all();
+    	$states = array();
+    	for($k=0;$k<count($statesModel); $k++)
+    	{
+    		$states[$statesModel[$k]['id']] = $statesModel[$k]['name'];
+    
+    	}
+    	return $states;
+    }
 }

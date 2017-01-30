@@ -23,6 +23,9 @@ use Yii;
  */
 class Branches extends \yii\db\ActiveRecord
 {
+	public $countriesList;
+	public $statesData;
+	public $citiesData;
     /**
      * @inheritdoc
      */
@@ -42,6 +45,7 @@ class Branches extends \yii\db\ActiveRecord
             [['address1', 'address2', 'aboutShop', 'status'], 'string'],
             [['branchName'], 'string', 'max' => 200],
             [['postalCode'], 'string', 'max' => 20],
+        	[['countriesList','statesData','citiesData','country'],'safe']
         ];
     }
 

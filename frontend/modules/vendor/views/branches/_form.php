@@ -2,6 +2,8 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use kartik\depdrop\DepDrop;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $model frontend\modules\vendor\models\Branches */
@@ -20,11 +22,28 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'address2')->textarea(['rows' => 6]) ?>
 
-    <?= $form->field($model, 'city')->textInput() ?>
+    
+   
+    <?= $form->field($model, 'country')->dropDownList($model->countriesList,['prompt'=>'Select Countries']);?>
 
-    <?= $form->field($model, 'state')->textInput() ?>
+   
+    <?php echo $form->field($model, 'state')->widget(DepDrop::classname(),[
+                    		'data'=>$model->statesData,
+    'pluginOptions'=>[
+        'depends'=>['branches-country'],
+        'placeholder'=>'Select States',
+        'url'=>Url::to(['/vendor/branches/states'])
+    ]
+]);?>
 
-    <?= $form->field($model, 'country')->textInput() ?>
+   <?php echo $form->field($model, 'city')->widget(DepDrop::classname(), [
+                   		'data'=>$model->citiesData,
+    'pluginOptions'=>[
+        'depends'=>['branches-state'],
+        'placeholder'=>'Select Cities',
+        'url'=>Url::to(['/vendor/branches/cities'])
+    ]
+]);?>
 
     <?= $form->field($model, 'postalCode')->textInput(['maxlength' => true]) ?>
 
