@@ -106,6 +106,12 @@ class Countries extends \yii\db\ActiveRecord
     	->one();
     	return $countryName['id'];
     }
+    public static function getCountryName($countryId)
+    {
+    	$countryName = Countries::find()->select(['name'])->asArray()->where(['id'=>$countryId])
+    	->one();
+    	return $countryName['name'];
+    }
     public static function getStatesByCountryview($countryId)
     {
     	$statesModel = States::find()->select(['id', 'name'])->asArray()->where(['country_id'=>$countryId])

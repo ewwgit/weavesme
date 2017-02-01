@@ -19,7 +19,14 @@ use kartik\file\FileInput;
 <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]); ?>
  <!-- left column -->
         <div class="col-md-4 col-sm-6 col-xs-12">
-          <div class="text-center"> <img src="images/logo.png" class="avatar img-circle img-thumbnail" alt="avatar">
+          <div class="text-center"> <img src="<?php
+							if($model->viewProfileImage){
+								echo isset( $model->viewProfileImage)? Url::base().$model->viewProfileImage : '' ;
+							
+							}else {
+									 echo Url::base()."/frontend/web/images/logo.png" ;
+								      }
+								?>" class="avatar img-circle img-thumbnail" alt="avatar">
             <h6>Upload a different photo...</h6>
             
             <?= $form->field($model, 'profileImage')->widget(FileInput::classname(), [
@@ -30,6 +37,16 @@ use kartik\file\FileInput;
         </div>
         <!-- edit form column -->
         <div class="col-md-8 col-sm-6 col-xs-12 personal-info">
+        <div class="row"> 
+          <div class="col-md-5">
+          <?= $form->field($model, 'userName')->textInput(['maxlength' => true,'readOnly' => true]) ?>
+          </div>
+          </div>
+          <div class="row"> 
+          <div class="col-md-5">
+          <?= $form->field($model, 'email')->textInput(['maxlength' => true,'readOnly' => true]) ?>
+          </div>
+          </div>
         <div class="row"> 
           <div class="col-md-5">
           <?= $form->field($model, 'companyName')->textInput(['maxlength' => true]) ?>

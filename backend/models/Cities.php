@@ -63,4 +63,10 @@ class Cities extends \yii\db\ActiveRecord
     	->one();
     	return $citiesModel['id'];
     }
+    public static function getCityName($cityId)
+    {
+    	$citiesModel = Cities::find()->select(['name'])->asArray()->where(['id'=>$cityId])
+    	->one();
+    	return $citiesModel['name'];
+    }
 }

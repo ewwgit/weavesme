@@ -21,12 +21,14 @@ use backend\models\States;
 use backend\models\Cities;
 use yii\helpers\Json;
 use yii\web\UploadedFile;
+use common\models\User;
 
 /**
  * VendorController implements the CRUD actions for VendorInfo model.
  */
 class VendorController extends Controller
 {
+	public $layout = 'vendorInner';
     /**
      * @inheritdoc
      */
@@ -131,10 +133,27 @@ public function behaviors()
      * @param integer $id
      * @return mixed
      */
-    public function actionView($id)
+    public function actionView()
     {
+    	$id = Yii::$app->vendoruser->vendorid;
+    	$model = $this->findModel($id);
+    	$userInfo = User::find()->where(['id' => $model->vendorId])->one();
+    	$model->userName = $userInfo->username;
+    	$model->email = $userInfo->email;
+    	if($model->city != '')
+    	{
+    	$model->city = Cities::getCityName($model->city);
+    	}
+    	if($model->state != '')
+    	{
+    		$model->state = States::getStateName($model->state);
+    	}
+    	if($model->country != '')
+    	{
+    		$model->country = Countries::getCountryName($model->country);
+    	}
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $model ,
         ]);
     }
 
@@ -167,6 +186,11 @@ public function behaviors()
     	$this->layout = 'vendorInner';
     	$id = Yii::$app->vendoruser->vendorid;
         $model = $this->findModel($id);
+        $model->viewProfileImage = $model->profileImage;
+        $model->profileImage = '';
+        $userInfo = User::find()->where(['id' => $model->vendorId])->one();
+        $model->userName = $userInfo->username;
+        $model->email = $userInfo->email;
         $userhaveRecords = 1;
        if($model == NULL)
        {
@@ -215,12 +239,12 @@ public function behaviors()
         		
         		$model->profileImage->saveAs(realpath(Yii::$app->basePath).'/web/uploads/profile/' . $imageName . '.' . $model->profileImage->extension);
         		
-        		$model->profileImage = 'web/uploads/profile/'.$imageName.'.'.$model->profileImage->extension;
+        		$model->profileImage = '/frontend/web/uploads/profile/'.$imageName.'.'.$model->profileImage->extension;
         		
         	}
         	
         	$model->save();
-            return $this->redirect(['index']);
+            return $this->redirect(['view']);
         } else {
             return $this->render('update', [
                 'model' => $model,
@@ -306,7 +330,7 @@ public function behaviors()
     			\Yii::$app->session->set('user.vendorupdated_at',$model->user->updated_at);
     			\Yii::$app->session->set('user.vendorroleId',$model->user->roleId);
     			
-    			return Yii::$app->getResponse()->redirect(Yii::$app->urlManager->createUrl(['vendor/vendor/']));
+    			return Yii::$app->getResponse()->redirect(Yii::$app->urlManager->createUrl(['vendor/vendor/view']));
     		}
     		return $this->goBack();
     	} else {

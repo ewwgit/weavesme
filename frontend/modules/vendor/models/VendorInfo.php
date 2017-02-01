@@ -27,6 +27,9 @@ class VendorInfo extends \yii\db\ActiveRecord
 	public $countriesList;
 	public $statesData;
 	public $citiesData;
+	public $viewProfileImage;
+	public $userName;
+	public $email;
     /**
      * @inheritdoc
      */
@@ -42,13 +45,15 @@ class VendorInfo extends \yii\db\ActiveRecord
     {
         return [
         		[['createdDate', 'updatedDate','vendorId', 'createdBy', 'updatedBy','firstName', 'lastName','telephone', 'mobile', 'fax'], 'safe'],
+        		[['companyName','regNumber','mobile'], 'required'],
+        		[['mobile'], 'integer'],
             /* [['vendorId'], 'required'],
             [['vendorId', 'createdBy', 'updatedBy'], 'integer'],
             [['createdDate', 'updatedDate'], 'safe'],
             [['firstName', 'lastName'], 'string', 'max' => 200],
             [['telephone', 'mobile', 'fax'], 'string', 'max' => 15],
             [['vendorId'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['vendorId' => 'id']], */
-        		[['countriesList','statesData','citiesData','country','state','city','address','postalCode','profileImage','companyName','regNumber'],'safe']
+        		[['countriesList','statesData','citiesData','country','state','city','address','postalCode','profileImage','companyName','regNumber','viewProfileImage','userName','email'],'safe']
         ];
     }
 
