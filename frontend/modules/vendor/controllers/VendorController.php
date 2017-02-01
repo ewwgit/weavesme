@@ -164,7 +164,7 @@ public function behaviors()
      */
     public function actionUpdate()
     {
-    	
+    	$this->layout = 'vendorInner';
     	$id = Yii::$app->vendoruser->vendorid;
         $model = $this->findModel($id);
         $userhaveRecords = 1;
@@ -262,6 +262,7 @@ public function behaviors()
     
     public function actionSignup()
     {
+    	$this->layout = 'vendorpublic';
     	$model = new SignupForm();
     	if ($model->load(Yii::$app->request->post())) {
     		if ($user = $model->signup()) {
@@ -284,6 +285,7 @@ public function behaviors()
      */
     public function actionLogin()
     {
+    	$this->layout = 'vendorpublic';
     	if (Yii::$app->vendoruser->vendorid != '') {
     		return $this->goHome();
     	}

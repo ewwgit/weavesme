@@ -10,14 +10,17 @@ use yii\bootstrap\ActiveForm;
 $this->title = 'Signup';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="site-signup">
-    <h1><?= Html::encode($this->title) ?></h1>
 
-    <p>Please fill out the following fields to signup:</p>
 
-    <div class="row">
-        <div class="col-lg-5">
-            <?php $form = ActiveForm::begin(['id' => 'form-signup']); ?>
+
+<div class="row">
+    <div class="form">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="panel-body">
+            <h2>Signup</h2>
+            <hr>
+             <?php $form = ActiveForm::begin(['id' => 'form-signup']); ?>
 
                 <?= $form->field($model, 'username')->textInput(['autofocus' => true]) ?>
 
@@ -25,12 +28,18 @@ $this->params['breadcrumbs'][] = $this->title;
 
                 <?= $form->field($model, 'password')->passwordInput() ?>
                  <?= $form->field($model, 'confirm')->passwordInput() ?>
-
+              <div class="text">
+                <p>By clicking on Sign up, you agree to <a href="#">terms & conditions</a> and <a href="#">privacy policy</a></p>
+              </div>
                 <div class="form-group">
-                    <?= Html::submitButton('Signup', ['class' => 'btn btn-primary', 'name' => 'signup-button']) ?>
+                    <?= Html::submitButton('Signup', ['class' => 'signup_button', 'name' => 'signup-button']) ?>
                 </div>
 
             <?php ActiveForm::end(); ?>
+            
+          </div>
+          <!--/panel-body--> 
         </div>
+      </div>
     </div>
-</div>
+  </div>

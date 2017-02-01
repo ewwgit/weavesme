@@ -48,7 +48,7 @@ class VendorInfo extends \yii\db\ActiveRecord
             [['firstName', 'lastName'], 'string', 'max' => 200],
             [['telephone', 'mobile', 'fax'], 'string', 'max' => 15],
             [['vendorId'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['vendorId' => 'id']], */
-        		[['countriesList','statesData','citiesData','country','state','city','address','postalCode','profileImage'],'safe']
+        		[['countriesList','statesData','citiesData','country','state','city','address','postalCode','profileImage','companyName','regNumber'],'safe']
         ];
     }
 
