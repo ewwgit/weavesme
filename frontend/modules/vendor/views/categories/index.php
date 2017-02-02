@@ -12,7 +12,7 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="categories-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+     <h3 class="page-header"> Categories</h3>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
@@ -24,11 +24,18 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'catId',
+            //'catId',
             'name',
-            'description:ntext',
-            'parentCategoryId',
-            'status',
+            //'description:ntext',
+           // 'parentCategoryId',
+            ['attribute'=>'status',
+        		'label' => 'Status',
+        		'value' => function ($data) {
+        			return $data->status;
+        		
+        		},
+        		'filter' => Html::activeDropDownList($searchModel, 'status', ['Active' => 'Active','In-active' => 'In-active'],['class'=>'form-control','prompt' => 'Status']),
+        		],
             // 'vendorId',
             // 'createdDate',
             // 'updatedDate',

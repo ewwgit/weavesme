@@ -18,6 +18,7 @@ use yii\helpers\Json;
  */
 class BranchesController extends Controller
 {
+	public $layout = 'vendorInner';
     /**
      * @inheritdoc
      */
@@ -94,6 +95,18 @@ class BranchesController extends Controller
         	$model->createdDate = date('Y-m-d H:i:s');
         	$model->updatedDate = date('Y-m-d H:i:s');
         	$model->vendorId = Yii::$app->vendoruser->vendorid;
+        	if($model->city != '')
+        	{
+        		$model->cityName = Cities::getCityName($model->city);
+        	}
+        	if($model->state != '')
+        	{
+        		$model->stateName = States::getStateName($model->state);
+        	}
+        	if($model->country != '')
+        	{
+        		$model->countryName = Countries::getCountryName($model->country);
+        	}
         	$model->save();
         	
             return $this->redirect(['view', 'id' => $model->branchId]);
@@ -140,6 +153,18 @@ class BranchesController extends Controller
 
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
         	$model->updatedDate = date('Y-m-d H:i:s');
+        	if($model->city != '')
+        	{
+        		$model->cityName = Cities::getCityName($model->city);
+        	}
+        	if($model->state != '')
+        	{
+        		$model->stateName = States::getStateName($model->state);
+        	}
+        	if($model->country != '')
+        	{
+        		$model->countryName = Countries::getCountryName($model->country);
+        	}
         	$model->save();
             return $this->redirect(['view', 'id' => $model->branchId]);
         } else {

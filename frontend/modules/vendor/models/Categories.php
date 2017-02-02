@@ -66,4 +66,9 @@ class Categories extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Products::className(), ['categoryId' => 'catId']);
     }
+    
+    public function getParent()
+    {
+    	return $this->hasOne(Categories::className(), ['catId' => 'parentCategoryId'])->from(Categories::tableName() . ' parent_page');
+    }
 }

@@ -30,7 +30,7 @@ AppAsset::register($this);
   <div class="container">
     <div class="row">
       <div class="col-md-4 col-xs-8">
-        <div class="logo"><a href="<?php echo Url::base();?>/frontend/web/images/logo.png"><img src="images/logo.png"></a></div>
+        <div class="logo"><a href="<?= Yii::$app->urlManager->createUrl(['vendor/vendor/signup']);?>"><img src="<?php echo Url::base();?>/frontend/web/images/logo.png"></a></div>
       </div>
       <div class="col-md-2 col-xs-4 pull-right">
       <div class="register_button"> <a href="<?= Yii::$app->urlManager->createUrl(['vendor/vendor/login']);?>">Login</a> </div>

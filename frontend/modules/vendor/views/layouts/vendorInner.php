@@ -30,7 +30,7 @@ AppAsset::register($this);
   <div class="container">
     <div class="row">
       <div class="col-md-3 col-sm-3">
-        <div class="logo"><a href="#"><img src="images/logo.png" class="img-responsive" > </a> </div>
+        <div class="logo"><a href="<?= Yii::$app->urlManager->createUrl(['vendor/vendor/view']);?>"><img src="<?php echo Url::base();?>/frontend/web/images/logo.png" class="img-responsive" > </a> </div>
       </div>
       <div class="col-md-6 col-sm-6 ">
         <nav id='cssmenu'>

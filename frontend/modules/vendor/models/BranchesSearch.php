@@ -19,7 +19,7 @@ class BranchesSearch extends Branches
     {
         return [
             [['branchId', 'vendorId', 'city', 'state', 'country'], 'integer'],
-            [['branchName', 'address1', 'address2', 'postalCode', 'aboutShop', 'status'], 'safe'],
+            [['branchName', 'address1', 'address2', 'postalCode', 'aboutShop', 'status','cityName','stateName','countryName'], 'safe'],
         ];
     }
 
@@ -68,6 +68,9 @@ class BranchesSearch extends Branches
             'branchId' => $this->branchId,
             'vendorId' => $this->vendorId,
             'city' => $this->city,
+        	'cityName' => $this->cityName,
+        	'stateName' => $this->stateName,
+        	'countryName' => $this->countryName,
             'state' => $this->state,
             'country' => $this->country,
         ]);

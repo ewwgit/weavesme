@@ -12,7 +12,7 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="products-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+   <h3 class="page-header"> Proudcts </h3>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
@@ -24,14 +24,44 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'productId',
-            'productCode',
-            'vendorId',
-            'branchId',
+            //'productId',
+           // 'productCode',
+            //'vendorId',
+            
             'productName',
             // 'categoryId',
             // 'description:ntext',
-            // 'productStatus',
+        		[
+        		'attribute' => 'categoryId',
+        		'label' => 'Category',
+        		'value' => 'category.name',
+        		 
+        		],
+            
+        	[
+        		'attribute' => 'branchId',
+        		'label' => 'Branch',
+        		'value' => 'branch.branchName',
+        		 
+        		],
+        	
+        		['attribute'=>'productStatus',
+        		'label' => 'Product Status',
+        		'value' => function ($data) {
+        		return $data->productStatus;
+        		
+        		},
+        		'filter' => Html::activeDropDownList($searchModel, 'productStatus', ['In Stock' => 'In Stock','Out Of Stock' => 'Out Of Stock'],['class'=>'form-control','prompt' => 'Status']),
+        		],
+        	
+        		['attribute'=>'status',
+        		'label' => 'Status',
+        		'value' => function ($data) {
+        			return $data->status;
+        		
+        		},
+        		'filter' => Html::activeDropDownList($searchModel, 'status', ['Active' => 'Active','In-active' => 'In-active'],['class'=>'form-control','prompt' => 'Status']),
+        		],
             // 'cashOnDeliveryStatus',
             // 'CashOnDeliveryPrice',
             // 'productColor:ntext',

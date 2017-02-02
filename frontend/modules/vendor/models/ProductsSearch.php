@@ -12,14 +12,15 @@ use frontend\modules\vendor\models\Products;
  */
 class ProductsSearch extends Products
 {
+	
     /**
      * @inheritdoc
      */
     public function rules()
     {
         return [
-            [['productId', 'vendorId', 'branchId', 'categoryId', 'createdBy', 'updatedBy'], 'integer'],
-            [['productCode', 'productName', 'description', 'productStatus', 'cashOnDeliveryStatus', 'CashOnDeliveryPrice', 'productColor', 'sareeFabric', 'sareeType', 'sareeWork', 'sareeLength', 'blouseAvailable', 'blouseColor', 'blouseWork', 'blouseFabric', 'blouseSize', 'pettiCoat', 'occation', 'WashCare', 'createdDate', 'updatedDate', 'status'], 'safe'],
+            [['productId', 'vendorId', 'createdBy', 'updatedBy'], 'integer'],
+            [['productCode', 'productName', 'branchId',  'categoryId','description', 'productStatus', 'cashOnDeliveryStatus', 'CashOnDeliveryPrice', 'productColor', 'sareeFabric', 'sareeType', 'sareeWork', 'sareeLength', 'blouseAvailable', 'blouseColor', 'blouseWork', 'blouseFabric', 'blouseSize', 'pettiCoat', 'occation', 'WashCare', 'createdDate', 'updatedDate', 'status'], 'safe'],
         ];
     }
 
@@ -41,11 +42,14 @@ class ProductsSearch extends Products
      */
     public function search($params)
     {
+    	
     	if(isset($params['searchnewType']) && ($params['searchnewType'] == 'vendor'))
     	{
-    		$query = Products::find()->where(['vendorId' => Yii::$app->vendoruser->vendorid]);
+    		
+    		$query = Products::find();
     	}
     	else {
+    		
         $query = Products::find();
     	}
 
@@ -62,17 +66,23 @@ class ProductsSearch extends Products
             // $query->where('0=1');
             return $dataProvider;
         }
+        $query->joinWith('branch');
+        $query->joinWith('category');
+        
 
         // grid filtering conditions
         $query->andFilterWhere([
             'productId' => $this->productId,
-            'vendorId' => $this->vendorId,
-            'branchId' => $this->branchId,
-            'categoryId' => $this->categoryId,
+            //'vendorId' => $this->vendorId,
+            //'branchId' => $this->branchId,
+            //'categoryId' => $this->categoryId,
             'createdBy' => $this->createdBy,
             'updatedBy' => $this->updatedBy,
             'createdDate' => $this->createdDate,
             'updatedDate' => $this->updatedDate,
+        	'products.status' => $this->status,
+        	//'branchName' => $this->branchName,
+        		
         ]);
 
         $query->andFilterWhere(['like', 'productCode', $this->productCode])
@@ -94,7 +104,12 @@ class ProductsSearch extends Products
             ->andFilterWhere(['like', 'pettiCoat', $this->pettiCoat])
             ->andFilterWhere(['like', 'occation', $this->occation])
             ->andFilterWhere(['like', 'WashCare', $this->WashCare])
-            ->andFilterWhere(['like', 'status', $this->status]);
+            ->andFilterWhere(['like', 'branches.branchName', $this->branchId])
+            ->andFilterWhere(['like', 'categories.name', $this->categoryId])
+            //->andFilterWhere(['like', 'branch.branchName', $this->branchName])
+            ->andFilterWhere(['like', 'products.status', $this->status])
+        ;
+        
 
         return $dataProvider;
     }

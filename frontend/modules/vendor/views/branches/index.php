@@ -10,9 +10,10 @@ use yii\grid\GridView;
 $this->title = 'Branches';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+
 <div class="branches-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <h3 class="page-header"> Branches</h3>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
@@ -24,11 +25,16 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'branchId',
-            'vendorId',
+            //'branchId',
+            //'vendorId',
             'branchName',
+        	'cityName',
+        	'stateName',
+        	'countryName',
+        	//'postalCode',
             'address1:ntext',
-            'address2:ntext',
+        	'status',
+            //'address2:ntext',
             // 'city',
             // 'state',
             // 'country',

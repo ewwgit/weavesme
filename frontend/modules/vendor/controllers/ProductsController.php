@@ -19,6 +19,7 @@ use frontend\modules\vendor\models\ProductGalleries;
  */
 class ProductsController extends Controller
 {
+	public $layout = 'vendorInner';
     /**
      * @inheritdoc
      */
