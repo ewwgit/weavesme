@@ -84,4 +84,10 @@ class VendorInfo extends \yii\db\ActiveRecord
     {
         return $this->hasOne(User::className(), ['id' => 'vendorId']);
     }
+    
+    public function getuserName($id)
+    {
+    	$userInfo = User::find()->select(['username'])->where(['id' => $id])->one();
+    	return $userInfo->username;
+    }
 }

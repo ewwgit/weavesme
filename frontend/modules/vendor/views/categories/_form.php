@@ -12,6 +12,7 @@ use frontend\modules\vendor\models\Categories;
 
 <div class="categories-form">
 
+<div class="col-md-4">
     <?php $form = ActiveForm::begin(); ?>
     
     
@@ -32,5 +33,6 @@ use frontend\modules\vendor\models\Categories;
     </div>
 
     <?php ActiveForm::end(); ?>
+    </div>
 
 </div>

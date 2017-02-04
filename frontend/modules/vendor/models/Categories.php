@@ -71,4 +71,10 @@ class Categories extends \yii\db\ActiveRecord
     {
     	return $this->hasOne(Categories::className(), ['catId' => 'parentCategoryId'])->from(Categories::tableName() . ' parent_page');
     }
+    
+    public static function getCategoryName($id)
+    {
+    	$categoryInfo = Categories::find()->select(['name'])->where(['catId' => $id])->one();
+    	return $categoryInfo->name;
+    }
 }

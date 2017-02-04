@@ -76,4 +76,9 @@ class Branches extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Products::className(), ['branchId' => 'branchId']);
     }
+    public static function getBranchName($id)
+    {
+    	$branchInfo = Branches::find()->select(['branchName'])->where(['branchId' => $id])->one();
+    	return $branchInfo->branchName;
+    }
 }

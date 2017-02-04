@@ -11,6 +11,7 @@ use yii\helpers\Url;
 ?>
 
 <div class="branches-form">
+<div class="col-md-4">
 
     <?php $form = ActiveForm::begin(); ?>
 
@@ -56,5 +57,6 @@ use yii\helpers\Url;
     </div>
 
     <?php ActiveForm::end(); ?>
+    </div>
 
 </div>

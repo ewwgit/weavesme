@@ -61,13 +61,25 @@ class ProductsController extends Controller
     public function actionView($id)
     {
     	$query = ProductGalleries::find()->where(['productId' => $id]);
+    	$costs = Costs::find()->where(['productId' => $id]);
+    	$shipping = ProductShipping::find()->where(['productId' => $id]);
     	$dataProvider = new ActiveDataProvider([
     			'query' => $query,
     			'pagination' => false
     	]);
+    	$costdataProvider = new ActiveDataProvider([
+    			'query' => $costs,
+    			'pagination' => false
+    	]);
+    	$shippingdataProvider = new ActiveDataProvider([
+    			'query' => $shipping,
+    			'pagination' => false
+    	]);
         return $this->render('view', [
             'model' => $this->findModel($id),
-        	'dataProvider' => $dataProvider
+        	'dataProvider' => $dataProvider,
+        	'costdataProvider' => $costdataProvider,
+        	'shippingdataProvider' => $shippingdataProvider
         ]);
     }
 
