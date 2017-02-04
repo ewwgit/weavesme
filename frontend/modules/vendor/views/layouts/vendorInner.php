@@ -70,7 +70,7 @@ AppAsset::register($this);
         <ul class="icon4 sub-icon2 ">
           <li><a class="active-icon2 " href="#"><i class="fa fa-user"></i> <?=  Yii::$app->vendoruser->vendorusername; ?> <i class="fa fa-caret-down"></i> </a>
             <ul class="sub-icon2 list">
-              <li><a href="#" title=""> Profile</a></li>
+              <li><a href="<?= Yii::$app->urlManager->createUrl(['vendor/vendor/view']);?>" title=""> Profile</a></li>
               <li><a href="<?= Yii::$app->urlManager->createUrl(['vendor/vendor/logout']);?>">Signout</a></li>
             </ul>
           </li>
