@@ -13,6 +13,7 @@ use frontend\modules\vendor\models\Costs;
 use frontend\modules\vendor\models\ProductShipping;
 use yii\web\UploadedFile;
 use frontend\modules\vendor\models\ProductGalleries;
+use yii\data\ActiveDataProvider;
 
 /**
  * ProductsController implements the CRUD actions for Products model.
@@ -59,8 +60,14 @@ class ProductsController extends Controller
      */
     public function actionView($id)
     {
+    	$query = ProductGalleries::find()->where(['productId' => $id]);
+    	$dataProvider = new ActiveDataProvider([
+    			'query' => $query,
+    			'pagination' => false
+    	]);
         return $this->render('view', [
             'model' => $this->findModel($id),
+        	'dataProvider' => $dataProvider
         ]);
     }
 
@@ -120,7 +127,7 @@ class ProductsController extends Controller
         		$galleryImges = new ProductGalleries();
         		$galleryImges->productId= $model->productId;
         		$imageName = rand(1000,100000).str_replace(' ', "_", $file->baseName);
-        		$galleryImges->imagePath = 'web/uploads/storegallery/'.$imageName.'.'.$file->extension;
+        		$galleryImges->imagePath = 'web/uploads/productgallery/'.$imageName.'.'.$file->extension;
         		$galleryImges->createdDate = date('Y-m-d H:i:s');
         		$galleryImges->save();
         		 
@@ -233,7 +240,7 @@ class ProductsController extends Controller
         		$galleryImges = new ProductGalleries();
         		$galleryImges->productId= $model->productId;
         		$imageName = rand(1000,100000).str_replace(' ', "_", $file->baseName);
-        		$galleryImges->imagePath = 'web/uploads/storegallery/'.$imageName.'.'.$file->extension;
+        		$galleryImges->imagePath = 'web/uploads/productgallery/'.$imageName.'.'.$file->extension;
         		$galleryImges->createdDate = date('Y-m-d H:i:s');
         		$galleryImges->save();
         		 
@@ -276,4 +283,23 @@ class ProductsController extends Controller
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
+    
+    public function actionRemovegallery()
+    {
+    	$galleryId = $_GET['galleryid'];
+    	$model = ProductGalleries::find()->where(['productGalleryId' => $galleryId])->one();
+    	$model->delete();
+    	/* Yii::$app->getSession()->setFlash('success', [
+    			'type' => 'success',
+    			'duration' => 20000,
+    			'icon' => 'fa fa-users',
+    			'message' => 'You are successfully deleted gallery image.',
+    			'title' => 'Success',
+    			'positonY' => 'bottom',
+    			'positonX' => 'right'
+    	]);
+    	$this->redirect(['showgallery']); */
+    	return true;
+    }
+    
 }

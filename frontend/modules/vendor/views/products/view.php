@@ -2,6 +2,8 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+use yii\widgets\ListView;
+use yii\web\View;
 
 /* @var $this yii\web\View */
 /* @var $model frontend\modules\vendor\models\Products */
@@ -58,5 +60,36 @@ $this->params['breadcrumbs'][] = $this->title;
             'status',
         ],
     ]) ?>
+    
+    
+    <div>
+    <h2>Product Images</h2>
+    <?php 
+echo ListView::widget( [
+		'dataProvider' => $dataProvider,
+		'itemView' => '_gallerylistview',
+] );
+?>   
+    </div>
 
 </div>
+
+<?php 
+
+$this->registerJs("
+		
+		$('.remove').on('click',  function(){
+		var galleryid = $(this).attr('galleryid');
+		var answer = confirm ('Are you sure you want to delete Gallery Image?');
+		$.ajax({
+        url: 'removegallery',
+        type: 'get',
+        data: {galleryid:galleryid},
+        success: function (response) {
+		$('#gal'+galleryid).remove();
+        }
+    });
+});
+
+		", View::POS_READY , 'my-options');
+?>

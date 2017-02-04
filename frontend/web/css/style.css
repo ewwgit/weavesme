@@ -644,3 +644,36 @@ background: #28166f;
     border: none;
 
 }
+ /* styles for list view */
+.glyphicon-eye-open
+{
+    color: #fff;
+    background-color: #449d44;
+    border-color: #398439;
+    padding: 1px 5px;
+    font-size: 12px;
+    line-height: 1.5;
+    border-radius: 3px;
+}
+.glyphicon-pencil
+{
+color: #fff;
+    background-color: #337ab7;
+    border-color: #2e6da4;
+    padding: 1px 5px;
+    font-size: 12px;
+    line-height: 1.5;
+    border-radius: 3px;
+}
+.glyphicon-trash
+{
+    color: #fff;
+    background-color: #d9534f;
+    border-color: #d43f3a;
+    padding: 1px 5px;
+    font-size: 12px;
+    line-height: 1.5;
+    border-radius: 3px;
+}
+
+/* styles for end list view */

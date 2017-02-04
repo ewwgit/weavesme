@@ -33,7 +33,14 @@ $this->params['breadcrumbs'][] = $this->title;
         	'countryName',
         	//'postalCode',
             'address1:ntext',
-        	'status',
+        	['attribute'=>'status',
+        		'label' => 'Status',
+        		'value' => function ($data) {
+        			return $data->status;
+        		
+        		},
+        		'filter' => Html::activeDropDownList($searchModel, 'status', ['Active' => 'Active','In-active' => 'In-active'],['class'=>'form-control','prompt' => 'Status']),
+        		],
             //'address2:ntext',
             // 'city',
             // 'state',
