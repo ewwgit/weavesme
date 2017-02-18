@@ -137,9 +137,12 @@ public function behaviors()
     {
     	$id = Yii::$app->vendoruser->vendorid;
     	$model = $this->findModel($id);
-    	$userInfo = User::find()->where(['id' => $model->vendorId])->one();
+    	//print_r($model);exit();
+    	
+    	$userInfo = User::find()->where(['id' => Yii::$app->vendoruser->vendorid])->one();
     	$model->userName = $userInfo->username;
     	$model->email = $userInfo->email;
+    
     	if($model->city != '')
     	{
     	$model->city = Cities::getCityName($model->city);
@@ -152,6 +155,7 @@ public function behaviors()
     	{
     		$model->country = Countries::getCountryName($model->country);
     	}
+    	
         return $this->render('view', [
             'model' => $model ,
         ]);
@@ -188,7 +192,7 @@ public function behaviors()
         $model = $this->findModel($id);
         $model->viewProfileImage = $model->profileImage;
         $model->profileImage = '';
-        $userInfo = User::find()->where(['id' => $model->vendorId])->one();
+        $userInfo = User::find()->where(['id' => Yii::$app->vendoruser->vendorid])->one();
         $model->userName = $userInfo->username;
         $model->email = $userInfo->email;
         $userhaveRecords = 1;
@@ -278,6 +282,7 @@ public function behaviors()
         	
             return $model;
         } else {
+        	$model = new VendorInfo();
         	return $model;
             //throw new NotFoundHttpException('The requested page does not exist.');
         }
