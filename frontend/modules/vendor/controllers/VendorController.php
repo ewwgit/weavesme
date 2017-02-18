@@ -187,6 +187,7 @@ public function behaviors()
      */
     public function actionUpdate()
     {
+    	
     	$this->layout = 'vendorInner';
     	$id = Yii::$app->vendoruser->vendorid;
         $model = $this->findModel($id);
