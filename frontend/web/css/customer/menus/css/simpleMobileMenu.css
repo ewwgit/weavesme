@@ -1,0 +1,152 @@
+@import url(https://fonts.googleapis.com/css?family=Open+Sans);
+
+html {
+  margin: 0px;
+  padding: 0px;
+font-family: 'Open Sans', sans-serif;
+  box-sizing: border-box;
+}
+
+*, *:before, *:after { box-sizing: inherit; }
+
+.cf:before, .cf:after {
+  content: " "; /* 1 */
+  display: table; /* 2 */
+}
+
+.cf:after { clear: both; }
+
+/**
+ * For IE 6/7 only
+ * Include this rule to trigger hasLayout and contain floats.
+ */
+
+
+.cf { *zoom: 1;
+}
+
+
+
+/*---------Authar Style----------*/
+
+
+.smobitrigger, .mnuclose { display: none; }
+
+header { padding:0px; }
+
+
+
+.navigation {  }
+
+.navigation nav ul {
+  padding: 0px;
+  margin: 0px;
+  list-style: none;
+}
+
+.navigation nav ul li { display: inline-block; }
+
+.navigation nav ul li a {
+  color: #fff;
+  font-weight: 400;
+  display: inline-block;
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 0px 25px;
+  transition: 0.5s;
+  -webkit-transition: 0.5s;
+  -moz-transition: 0.5s;
+  -ms-transition: 0.5s;
+  -o-transition: 0.5s;
+  font-size:12px;
+  min-height:35px;
+  line-height:35px;
+}
+.navigation nav ul li a:hover{color:#28166f;}
+.navigation nav ul li a.active{color:#28166f;}
+.navigation nav ul li a:first-child{padding-left:0px;}
+
+
+/*.navigation nav ul li a:hover {
+  background: rgb(234, 214, 54);
+  color: #441B0A;
+}*/
+ @media all and (max-width : 768px) {
+
+
+li.sin{
+	display:block !important;
+	}
+
+
+
+
+.smobitrigger, .mnuclose { display: inline-block; }
+
+.smobitrigger {
+  color: #000;
+  font-size: 20px;
+  line-height: 12px;
+padding-left:20px;
+  float:left !important;
+margin-top:1em !important;
+}
+
+
+.mnuclose {
+  font-size: 16px;
+  padding: 5px 5px;
+  width: 100%;
+  background: #0093dd;
+  text-align:right;
+  color:#fff !important;
+} 
+
+.smobitrigger span, .mnuclose span {
+  font: 0/0 a;
+  text-shadow: none;
+  color: transparent;
+}
+
+.navigation nav ul {
+  padding-bottom: 10px;
+  overflow-y: auto;
+}
+
+.navigation nav ul li, .navigation nav ul li a { width: 100%; }
+
+.navigation nav ul li a {
+/*  padding-top: 5px;*/
+/*  padding-bottom: 5px;*/
+  padding-left:10px !important;
+}
+
+.navigation nav ul li a:hover { background:#28166f ; color:#fff !important; }
+
+.mobimenu {
+  list-style: none;
+  padding: 20px;
+  margin: 0px;
+  width: 210px;
+  position: fixed;
+  height: 100%;
+  top: 0px;
+  left: -250px;
+  
+}
+
+.mnuopn { left: 0px !important; }
+
+.ovrActv {
+  position: fixed;
+  background: rgba(0, 0, 0, 0.79);
+  width: 100%;
+  height: 100%;
+  z-index: 9998;
+  transition: 0.5s;
+  -webkit-transition: 0.5s;
+  -moz-transition: 0.5s;
+  -ms-transition: 0.5s;
+  -o-transition: 0.5s;
+}
+}
