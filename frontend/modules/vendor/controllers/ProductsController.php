@@ -53,6 +53,7 @@ class ProductsController extends Controller
         ]);
     }
 
+    
     /**
      * Displays a single Products model.
      * @param integer $id
