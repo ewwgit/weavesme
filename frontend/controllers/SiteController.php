@@ -12,6 +12,9 @@ use frontend\models\PasswordResetRequestForm;
 use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
 use frontend\models\ContactForm;
+use frontend\modules\vendor\models\Products;
+use frontend\modules\vendor\models\Categories;
+use yii\data\ArrayDataProvider;
 
 /**
  * Site controller
@@ -73,7 +76,90 @@ class SiteController extends Controller
     public function actionIndex()
     {
     	$this->layout = 'customermain';
-        return $this->render('index');
+    	$model = new Products();
+    	
+    	$firstCategoryId = 28;
+    	$frcategory = Categories::find()->select('name')->where(['catId' => $firstCategoryId])->one();
+    	$categoryName1 = $frcategory->name;
+    	$firstCategory = ['28'];
+    	$firstcategorysubcat = Categories::find()->where(['parentCategoryId' => $firstCategoryId])->all();
+    	
+    	foreach ($firstcategorysubcat as $subcat)
+    	{
+    		$firstCategory[] = $subcat->catId;
+    	}
+    	$allProducts = Products::find()->where(['IN','categoryId',$firstCategory])->all();
+    	$category1 = new ArrayDataProvider([
+    			'allModels' => $allProducts,
+    	
+    			'pagination' => false
+    	
+    	]);
+    	
+    	$secondCategoryId = 23;
+    	$sccategory = Categories::find()->select('name')->where(['catId' => $secondCategoryId])->one();
+    	$categoryName2 = $sccategory->name;
+    	$secondCategory = ['23'];
+    	$secondcategorysubcat = Categories::find()->where(['parentCategoryId' => $secondCategoryId])->all();
+    	 
+    	foreach ($secondcategorysubcat as $ssubcat)
+    	{
+    		$secondCategory[] = $ssubcat->catId;
+    	}
+    	$sallProducts = Products::find()->where(['IN','categoryId',$secondCategory])->all();
+    	$category2 = new ArrayDataProvider([
+    			'allModels' => $sallProducts,
+    			 
+    			'pagination' => false
+    			 
+    	]);
+    	
+    	$thirdCategoryId = 4;
+    	$thcategory = Categories::find()->select('name')->where(['catId' => $thirdCategoryId])->one();
+    	$categoryName3 = $thcategory->name;
+    	$thirdCategory = ['4'];
+    	$thirdcategorysubcat = Categories::find()->where(['parentCategoryId' => $thirdCategoryId])->all();
+    	
+    	foreach ($thirdcategorysubcat as $tsubcat)
+    	{
+    		$thirdCategory[] = $tsubcat->catId;
+    	}
+    	$tallProducts = Products::find()->where(['IN','categoryId',$thirdCategory])->all();
+    	$category3 = new ArrayDataProvider([
+    			'allModels' => $tallProducts,
+    	
+    			'pagination' => false
+    	
+    	]);
+    	
+    	$fourthCategoryId = 49;
+    	$forcategory = Categories::find()->select('name')->where(['catId' => $fourthCategoryId])->one();
+    	$categoryName4 = $forcategory->name;
+    	$fourthCategory = ['49'];
+    	$fourthcategorysubcat = Categories::find()->where(['parentCategoryId' => $fourthCategoryId])->all();
+    	 
+    	foreach ($fourthcategorysubcat as $fsubcat)
+    	{
+    		$fourthCategory[] = $fsubcat->catId;
+    	}
+    	$fallProducts = Products::find()->where(['IN','categoryId',$fourthCategory])->all();
+    	$category4 = new ArrayDataProvider([
+    			'allModels' => $fallProducts,
+    			 
+    			'pagination' => false
+    			 
+    	]);
+    	//print_r($allProducts);exit();
+        return $this->render('index',[
+        		'category1' => $category1,
+        		'category2' => $category2,
+        		'category3' => $category3,
+        		'category4' => $category4,
+        		'categoryName1' => $categoryName1,
+        		'categoryName2' => $categoryName2,
+        		'categoryName3' => $categoryName3,
+        		'categoryName4' => $categoryName4,
+        ]);
     }
 
     /**
