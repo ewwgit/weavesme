@@ -77,4 +77,17 @@ class Categories extends \yii\db\ActiveRecord
     	$categoryInfo = Categories::find()->select(['name'])->where(['catId' => $id])->one();
     	return $categoryInfo->name;
     }
+    
+    public static function getCategoriesByVendor($vendorId)
+    {
+    	$citiesModel = Categories::find()->select(['catId', 'name'])->asArray()->where(['vendorId'=>$vendorId])
+    	->all();
+    	$cities = array();
+    	for($k=0;$k<count($citiesModel); $k++)
+    	{
+    		$cities[$k]['id'] = $citiesModel[$k]['catId'];
+    		$cities[$k]['name'] = $citiesModel[$k]['name'];
+    	}
+    	return $cities;
+    }
 }

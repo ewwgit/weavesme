@@ -15,6 +15,9 @@ use frontend\models\ContactForm;
 use frontend\modules\vendor\models\Products;
 use frontend\modules\vendor\models\Categories;
 use yii\data\ArrayDataProvider;
+use frontend\modules\vendor\models\VendorInfo;
+use frontend\models\SearchForm;
+use yii\helpers\Json;
 
 /**
  * Site controller
@@ -77,6 +80,7 @@ class SiteController extends Controller
     {
     	$this->layout = 'customermain';
     	$model = new Products();
+    	$srmodel = new SearchForm();
     	
     	$firstCategoryId = 28;
     	$frcategory = Categories::find()->select('name')->where(['catId' => $firstCategoryId])->one();
@@ -149,7 +153,18 @@ class SiteController extends Controller
     			'pagination' => false
     			 
     	]);
-    	//print_r($allProducts);exit();
+    	$statesInfo = VendorInfo::find()->select(['state','stateName'])->distinct()->where(['not', ['state' => null]])->orderBy('stateName')->all();
+    	$stateAry = array();
+    	foreach($statesInfo as $stateval)
+    	{
+    		$stateAry[$stateval->state] = $stateval->stateName;
+    	}
+    	$srmodel->stateData = array();
+    	$srmodel->cityData = array();
+    	$srmodel->vendorData = array();
+    	$srmodel->categoryData = array();
+    	$srmodel->stateData = $stateAry;
+    	//print_r($srmodel);exit();
         return $this->render('index',[
         		'category1' => $category1,
         		'category2' => $category2,
@@ -159,6 +174,7 @@ class SiteController extends Controller
         		'categoryName2' => $categoryName2,
         		'categoryName3' => $categoryName3,
         		'categoryName4' => $categoryName4,
+        		'srmodel' => $srmodel,
         ]);
     }
 
@@ -297,4 +313,87 @@ class SiteController extends Controller
             'model' => $model,
         ]);
     }
+    
+    public function actionCities()
+    {
+    
+    	$out = [];
+    	if (isset($_POST['depdrop_parents'])) {
+    		$parents = $_POST['depdrop_parents'];
+    
+    		if ($parents != null) {
+    			$state = $parents[0];
+    			$cities = VendorInfo::getCitiesByState($state);
+    			/* $out = [
+    			 ['id'=>'<sub-cat-id-1>', 'name'=>'<sub-cat-name1>'],
+    			 ['id'=>'<sub-cat_id_2>', 'name'=>'<sub-cat-name2>']
+    
+    			 ]; */
+    			echo Json::encode(['output'=>$cities, 'selected'=>0]);
+    			return;
+    
+    
+    		}
+    	}
+    
+    	echo Json::encode(['output'=>'', 'selected'=>'']);
+    
+    
+    }
+    
+    public function actionVendors()
+    {
+    
+    	$out = [];
+    	if (isset($_POST['depdrop_parents'])) {
+    		$parents = $_POST['depdrop_parents'];
+    
+    		if ($parents != null) {
+    			$city = $parents[0];
+    			$vendors = VendorInfo::getVendorsByCity($city);
+    			/* $out = [
+    			 ['id'=>'<sub-cat-id-1>', 'name'=>'<sub-cat-name1>'],
+    			 ['id'=>'<sub-cat_id_2>', 'name'=>'<sub-cat-name2>']
+    
+    			 ]; */
+    			echo Json::encode(['output'=>$vendors, 'selected'=>0]);
+    			return;
+    
+    
+    		}
+    	}
+    
+    	echo Json::encode(['output'=>'', 'selected'=>'']);
+    
+    
+    }
+    
+    public function actionCategories()
+    {
+    
+    	$out = [];
+    	if (isset($_POST['depdrop_parents'])) {
+    		$parents = $_POST['depdrop_parents'];
+    
+    		if ($parents != null) {
+    			$vendorId = $parents[0];
+    			$categoriesar = Categories::getCategoriesByVendor($vendorId);
+    			/* $out = [
+    			 ['id'=>'<sub-cat-id-1>', 'name'=>'<sub-cat-name1>'],
+    			 ['id'=>'<sub-cat_id_2>', 'name'=>'<sub-cat-name2>']
+    
+    			 ]; */
+    			echo Json::encode(['output'=>$categoriesar, 'selected'=>0]);
+    			return;
+    
+    
+    		}
+    	}
+    
+    	echo Json::encode(['output'=>'', 'selected'=>'']);
+    
+    
+    }
 }
+
+

@@ -6,9 +6,9 @@
 use yii\helpers\Html;
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
-use yii\widgets\Breadcrumbs;
+
 use frontend\assets\AppAssetCustomer;
-use common\widgets\Alert;
+
 
 AppAssetCustomer::register($this);
 ?>
@@ -214,75 +214,7 @@ AppAssetCustomer::register($this);
    
      </a>
      
-  <div class="container">
-    <div class="main-text hidden-xs hidden-sm">
-      <div class="col-md-12">
-        <div class="row">
-          <div class="col-md-6">
-            <div class="form-group">
-              <label for="exampleSelect1">State</label>
-              <select class="form-control" id="exampleSelect1">
-                <option>select state</option>
-                <option>-</option>
-                <option>-</option>
-                <option>-</option>
-                <option>-</option>
-              </select>
-            </div>
-          </div>
-          <div class="col-md-6">
-            <div class="form-group">
-              <label for="exampleSelect1">City</label>
-              <select class="form-control" id="exampleSelect1">
-                <option>select city</option>
-                <option>-</option>
-                <option>-</option>
-                <option>-</option>
-                <option>-</option>
-              </select>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-6">
-            <div class="form-group">
-              <label for="exampleSelect1">Vendor</label>
-              <select class="form-control" id="exampleSelect1">
-                <option>select vendor</option>
-                <option>-</option>
-                <option>-</option>
-                <option>-</option>
-                <option>-</option>
-              </select>
-            </div>
-          </div>
-          <div class="col-md-6">
-            <div class="form-group">
-              <label for="exampleSelect1">Category</label>
-              <select class="form-control" id="exampleSelect1">
-                <option>select category</option>
-                <option>-</option>
-                <option>-</option>
-                <option>-</option>
-                <option>-</option>
-              </select>
-            </div>
-          </div>
-        </div>
-        <div class="button"><a href="#">search</a></div>
-      </div>
-    </div>
-  </div>
-</div>
-<div class="clearfix"></div>
-<div id="bg">
-  <div class="page-top">
-
-    <div class="container">
-        <?= Breadcrumbs::widget([
-            'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-        ]) ?>
-        <?= Alert::widget() ?>
+  
         <?= $content ?>
     </div>
 </div>

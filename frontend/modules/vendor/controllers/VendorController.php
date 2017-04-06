@@ -247,7 +247,21 @@ public function behaviors()
         		$model->profileImage = '/frontend/web/uploads/profile/'.$imageName.'.'.$model->profileImage->extension;
         		
         	}
-        	
+        	$model->countryName = '';
+        	$model->stateName = '';
+        	$model->cityName = '';
+        	if($model->country != '')
+        	{
+        		$model->countryName = Countries::getCountryName($model->country);
+        	}
+        	if($model->state != '')
+        	{
+        		$model->stateName = States::getStateName($model->state);
+        	}
+        	if($model->city != '')
+        	{
+        		$model->cityName = Cities::getCityName($model->city);
+        	}
         	$model->save();
             return $this->redirect(['view']);
         } else {

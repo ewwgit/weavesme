@@ -21,7 +21,7 @@ class AppAssetCustomer extends AssetBundle
     ];
     public $js = [
     		'js/customer/bootstrap.min.js',
-    		'js/customer/jquery-1.11.1.min.js',
+    		//'js/customer/jquery-1.11.1.min.js',
     		'js/customer/modernizr.js',
     		'js/customer/own-menu.js',
     		'js/customer/theme-script.js',

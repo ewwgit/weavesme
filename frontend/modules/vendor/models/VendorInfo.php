@@ -44,7 +44,7 @@ class VendorInfo extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-        		[['createdDate', 'updatedDate','vendorId', 'createdBy', 'updatedBy','firstName', 'lastName','telephone', 'mobile', 'fax'], 'safe'],
+        		[['createdDate', 'updatedDate','vendorId', 'createdBy', 'updatedBy','firstName', 'lastName','telephone', 'mobile', 'fax','countryName','stateName','cityName'], 'safe'],
         		[['companyName','regNumber','mobile'], 'required'],
         		[['mobile'], 'integer'],
             /* [['vendorId'], 'required'],
@@ -90,4 +90,31 @@ class VendorInfo extends \yii\db\ActiveRecord
     	$userInfo = User::find()->select(['username'])->where(['id' => $id])->one();
     	return $userInfo->username;
     }
+    
+    public static function getCitiesByState($stateid)
+    {
+    	$citiesModel = VendorInfo::find()->select(['city', 'cityName'])->asArray()->where(['state'=>$stateid])
+    	->all();
+    	$cities = array();
+    	for($k=0;$k<count($citiesModel); $k++)
+    	{
+    		$cities[$k]['id'] = $citiesModel[$k]['city'];
+    		$cities[$k]['name'] = $citiesModel[$k]['cityName'];
+    	}
+    	return $cities;
+    }
+    
+    public static function getVendorsByCity($city)
+    {
+    	$citiesModel = VendorInfo::find()->select(['vendorId', 'companyName'])->asArray()->where(['city'=>$city])
+    	->all();
+    	$cities = array();
+    	for($k=0;$k<count($citiesModel); $k++)
+    	{
+    		$cities[$k]['id'] = $citiesModel[$k]['vendorId'];
+    		$cities[$k]['name'] = $citiesModel[$k]['companyName'];
+    	}
+    	return $cities;
+    }
+    
 }
